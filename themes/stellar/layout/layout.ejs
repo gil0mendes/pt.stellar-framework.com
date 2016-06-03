@@ -1,0 +1,54 @@
+<% var isIndex = page.path === 'index.html' %>
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title><%- page.title ? page.title + ' - ' : '' %>Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = '<%- page.type %>'
+    </script>
+
+    <!-- load page style -->
+    <%- css(isIndex ? 'css/index' : 'css/page') %>
+
+    <!-- load Google Analytics -->
+    <%- partial('partials/ga') %>
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    <% if (!isIndex) { %>
+      <%- partial('partials/header') %>
+      <div id="main">
+        <%- body %>
+      </div>
+    <% } else { %>
+      <%- body %>
+    <% } %>
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

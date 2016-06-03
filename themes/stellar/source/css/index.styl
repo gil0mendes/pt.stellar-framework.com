@@ -1,0 +1,97 @@
+@import "_common"
+
+zoom()
+    -webkit-transform scale(1.05)
+    -moz-transform scale(1.05)
+    -ms-transform scale(1.05)
+    transform scale(1.05)
+
+html, body
+    height 100%
+
+#nav, #translations
+    list-style-type none
+    text-align center
+    padding 0
+    margin 0
+    li
+        display inline-block
+        position relative
+        line-height 40px
+        &:last-child .nav-link
+            margin-right 0
+
+#translations
+    margin-bottom 3em
+    .delimiter
+        color $light
+        margin 0 5px
+    .nav-link
+        margin 0
+
+.nav-link
+    color $light
+    padding-bottom 3px
+    margin 0 1.5em
+    &:first-child
+        margin-left 0
+    &:hover, &.current
+        border-bottom 3px solid $green
+
+#logo
+    display block
+    margin 0 auto
+    width 200px
+
+#logo-wrap
+    margin 3.5em 0 4em
+
+#hero
+    text-align center
+    height 100%
+    min-height 720px
+    position relative
+    .inner
+        height 640px
+        width 100%
+        position absolute
+        top 50%
+        margin-top -340px
+        left 0
+    h1
+        font-family $logo-font
+        font-weight 300
+        font-size 4em
+        margin 0
+    .warning
+        color $light
+    .desc
+        max-width 800px
+        padding 0 20px
+        text-align center
+        margin 1.5em auto
+        color $light
+    .down
+        position absolute
+        bottom 0
+        width 100%
+        left 0
+        padding 1.5em 0
+        img
+            width 20px
+    a.button
+        width 280px
+        margin .5em
+
+#social
+    text-align center
+    list-style-type none
+    margin 0 auto
+    padding 0
+    margin 1.5em auto
+    li
+        display inline-block
+        margin 0 5px
+        vertical-align middle
+        &.last
+            margin-left -2px
