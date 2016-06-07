@@ -6,7 +6,30 @@ order: 2
 
 ## O que é uma ação?
 
-As ações são os _building blocks_ do Stellar, está é a unidade básica da Framework. Sendo o Stellar uma Framework baseada em ações, isto significa que existe um repositório com todas as ações registadas no projeto. Uma ação representa uma pequena funcionalidade do projeto, elas podem ser chamadas diretamente pelo cliente ou então por outras ações. As ações podem receber um conjunto de _inputs_ que depois de processados devolvem um conjunto de _outputs_. Estas ações podem ser privadas, podendo apenas serem chamadas por outras ações e não pelo cliente e também podem ser sobrescritas por outros módulos, amenos que se encontrem protegidas contra isso.Os desenvolvedores podem criar as suas próprias ações criando um novo ficheiro na pasta `actions` do módulo ou então recorrer à ferramenta de linha de comandos para gerar o ficheiros e a estrutura de forma automática (`stellar makeAction <nome_da_action> --module=<modulo_onde_criar_a_ação>`).As ações são carregadas para o Engine quando este é iniciado, as ações podem ser chamadas em qualquer zona da aplicação, incluindo em outros módulos.![Ação](/images/action.png)
+As ações são os _building blocks_ do Stellar, está é a unidade básica da Framework. Sendo o Stellar uma Framework baseada em ações, isto significa que existe um repositório com todas as ações registadas no projeto. Uma ação representa uma pequena funcionalidade do projeto, elas podem ser chamadas diretamente pelo cliente ou então por outras ações. As ações podem receber um conjunto de _inputs_ que depois de processados devolvem um conjunto de _outputs_. Estas ações podem ser privadas, podendo apenas serem chamadas por outras ações e não pelo cliente e também podem ser sobrescritas por outros módulos, amenos que se encontrem protegidas contra isso.Os desenvolvedores podem criar as suas próprias ações criando um novo ficheiro na pasta `actions` do módulo ou então recorrer à ferramenta de linha de comandos para gerar o ficheiros e a estrutura de forma automática (`stellar makeAction <nome_da_action> --module=<modulo_onde_criar_a_ação>`).As ações são carregadas para o Engine quando este é iniciado, as ações podem ser chamadas em qualquer zona da aplicação, incluindo em outros módulos.
+```javascript
+exports.randomNumber = {
+    name: 'randomNumber',
+    description: 'Generate a random number',
+    outputExample: {
+        number: 0.40420848364010453
+    },
+
+    run: function(api, data, next) {
+        // generate a random number
+        var number = Math.random()
+
+        // save the generated number on the response property
+        data.response.number = number
+
+        // return a formated string
+        data.response.formatedNumber = 'Your random number is ' + number
+
+        // finish the action execution
+        next()
+    }
+}
+```
 
 As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (`name`) e a outra é a lógica (`run`) da ação, mas esta pode contem muitas mais informações adicionais tal como uma descrição, restrições aos valores de _input_, _middleware_ e um exemplo de _output_. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas de forma a que todos os elementos possam de forma fácil ficar a saber de todas as funcionalidades do projeto sem terem que perguntar a outros elementos da equipa. Na figura acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar uma numero aleatório.As ações são assíncronas e recebem uma referencia para a API (funções partilhadas do Engine), o objeto da conexão e a função de _callback_. Para completar a execução de uma ação basta chamar a função `next(error)`, se existir um erro, tem que se assegurar que se passa uma instância de `Error` e não uma `String`.Por causa da anatomia das ações estas podem ser chamadas internamente pelo cliente ou através de outras ações sem a necessidade de alterações ou escrever código especifico para cada senário de utilização.## Propriedades
 
