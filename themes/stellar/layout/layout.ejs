@@ -37,8 +37,15 @@
     <% if (!isIndex) { %>
       <%- partial('partials/header') %>
       <div id="main">
-        <%- body %>
+        <% if (page.blog_index) { %>
+          <%- partial('partials/blog') %>
+        <% } else { %>
+          <%- body %>
+        <% } %>
       </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
     <% } else { %>
       <%- body %>
     <% } %>

@@ -1,0 +1,14 @@
+<div class="sidebar">
+  <ul class="main-menu">
+    <%- partial('partials/main_menu') %>
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      <% type !== 'api' && site.pages.find({type: type}).sort('order').each(function (p) { %>
+        <li>
+          <a href="/<%- p.path %>" class="sidebar-link<%- page.title === p.title ? ' current' : '' %><%- p.is_new ? ' new' : '' %>"><%- p.title %></a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
