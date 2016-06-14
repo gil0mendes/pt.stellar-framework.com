@@ -1,6 +1,6 @@
 ---
 title: Visão Geral
-type: guid
+type: guide
 order: 1
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Cache
-type: guid
+type: guide
 order: 7
 ---
 
@@ -72,9 +72,9 @@ O método `api.cache.lock(key, expireTimeMS, next)` permite bloquear um objeto p
 
 ```javascript
 api.cache.lock(‘inTransaction’, (error, lockOk) => {
-  if (!lockOk) { 
+  if (!lockOk) {
     // Foi impossível obter o bloqueio!
-    return 
+    return
   }
 
   // Faz alguma coisa depois de obter o bloqueio!
@@ -92,9 +92,9 @@ Para desbloquear um objeto basta fazer uso do método `api.cache.unlock(key, nex
 
 ```javascript
 api.cache.unlock(‘inTransaction’, (error, lockOl’) => {
-  if (!lockOk) { 
+  if (!lockOk) {
     // foi impossível remover o bloqueio!
-    return 
+    return
   }
 
   // o bloqueio foi removido!
@@ -114,7 +114,7 @@ Existe também um método que permite obter o estado de bloqueio de um determina
 api.cache.chechLock(‘inTransaction’, (error, lockOk) => {
   if (!lockOk) {
     // o objeto não contem um bloqueio!
-    return 
+    return
   }
 
   // o objeto encontra-se bloqueado!
@@ -131,7 +131,7 @@ O método `api.cache.locks(next)` permite obter todos os bloqueios ativos na pla
 
 ```javascript
 api.cache.locks((error, locks) => {
-  // a variável ‘locks’ é um array que contem todos 
+  // a variável ‘locks’ é um array que contem todos
   // os bloqueios ativos.
 })
 ```

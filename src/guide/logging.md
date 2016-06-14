@@ -1,6 +1,6 @@
 ---
 title: Logging
-type: guid
+type: guide
 order: 11
 ---
 

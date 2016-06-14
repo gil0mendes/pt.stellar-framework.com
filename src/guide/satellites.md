@@ -1,6 +1,6 @@
 ---
 title: Satélites
-type: guid
+type: guide
 order: 5
 ---
 

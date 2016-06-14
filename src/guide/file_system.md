@@ -1,6 +1,6 @@
 ---
 title: Sistema de Ficheiros
-type: guid
+type: guide
 order: 10
 ---
 

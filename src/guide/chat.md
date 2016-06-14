@@ -1,6 +1,6 @@
 ---
 title: Chat
-type: guid
+type: guide
 order: 8
 ---
 
@@ -14,7 +14,7 @@ Existem métodos que permitem gerir as salas de _chat_ e os seus membros. Estes 
 
 ### Broadcast
 
-O método `api.chatRoom.broadcast(connection, room, message, callback)` permite emitir uma mensagem para todos os membros de uma determinada sala. O parâmetro `connection` pode ser uma conexão real de uma mensagem a chegar de um cliente, ou pode ser uma conexão construída manualmente. As conexões construídas deve por menos conter a propriedade `{room: ‘umaOutraRoom’}`, quando não é especificado um `id` é assumido o valor de `0`. 
+O método `api.chatRoom.broadcast(connection, room, message, callback)` permite emitir uma mensagem para todos os membros de uma determinada sala. O parâmetro `connection` pode ser uma conexão real de uma mensagem a chegar de um cliente, ou pode ser uma conexão construída manualmente. As conexões construídas deve por menos conter a propriedade `{room: ‘umaOutraRoom’}`, quando não é especificado um `id` é assumido o valor de `0`.
 
 ```javascript
 api.chatRoom.broadcast({room: ‘general’}, ‘general’, ‘Olá!’, error => {
@@ -161,4 +161,3 @@ connectionObj.sendMessage(‘Bem-Vindo ao Stellar :)’)
 ## Funções do Cliente
 
 A forma como é possível comunicar através do cliente encontra-se descrita em uma sub-secção de cada tipo de servidor bi-direcional [websocket](./websocket.html) e [TCP](./tcp.html).
-

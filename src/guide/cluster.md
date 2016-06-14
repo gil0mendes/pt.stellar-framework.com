@@ -1,6 +1,6 @@
 ---
 title: Cluster
-type: guid
+type: guide
 order: 6
 ---
 
@@ -32,7 +32,7 @@ api.redis.doCluster(‘api.log’, [`olá a partir do nó ${api.id}`])
 
 ## Redis Pub/Sub
 
-Também está disponível um mecanismo de pub/sub, através do Redis, que permite comunicações entre os nós do _cluster_. É possível enviar mensagens em _broadcast_ e receber mensagens de outros nós do _cluster_ usando o método: `api.redis.publish(payload)`. O _payload_ deve conter as seguintes propriedades: 
+Também está disponível um mecanismo de pub/sub, através do Redis, que permite comunicações entre os nós do _cluster_. É possível enviar mensagens em _broadcast_ e receber mensagens de outros nós do _cluster_ usando o método: `api.redis.publish(payload)`. O _payload_ deve conter as seguintes propriedades:
 
 * `messageType`: Nome to tipo de _payload_;
 * `serverId`: Id do servidor, `api.id`;

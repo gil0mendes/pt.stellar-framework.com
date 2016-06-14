@@ -1,6 +1,6 @@
 ---
 title: Ações
-type: guid
+type: guide
 order: 2
 ---
 

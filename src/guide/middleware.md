@@ -1,6 +1,6 @@
 ---
 title: Middleware
-type: guid
+type: guide
 order: 4
 ---
 

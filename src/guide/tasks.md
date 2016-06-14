@@ -1,6 +1,6 @@
 ---
 title: Tarefas
-type: guid
+type: guide
 order: 3
 ---
 
@@ -93,6 +93,6 @@ exports.sayHello = {
 
 
 > TODO
- * Adicionar tarefas periódicas 
+ * Adicionar tarefas periódicas
  * Gerir as tarefas/trabalhos
  * Gerir as tarefas falhadas
