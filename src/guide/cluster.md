@@ -1,7 +1,7 @@
 ---
 title: Cluster
 type: guide
-order: 6
+order: 7
 ---
 
 ## Objetivo

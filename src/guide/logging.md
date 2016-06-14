@@ -1,7 +1,7 @@
 ---
 title: Logging
 type: guide
-order: 11
+order: 12
 ---
 
 O Stellar faz uso do fantástico pacote [Winston](https://www.npmjs.com/package/winston) para a gestão de _logs_. Usando o Winston é possível melhorar e tornar o sistema de _logs_ extremamente customizável, devido à sua elevada flexibilidade.
@@ -19,7 +19,7 @@ export const logger {
         level: 'debug',
       })
     },
-    
+
     api => {
       return new (winston.transports.File)({
         filename: `./log/${api.pids.title}.log`,
@@ -51,7 +51,7 @@ Por exemplo, se o nível do _log_ for definido para “notice”, mensagens crit
 ```javascript
 api.log(‘hello!’) // por defeito é uma mensagem com nível informativo
 api.log(‘debug message’, ‘debug’) // não irá aparecer a não ser que o NODE_ENV está definido para debug
-api.log(‘Bad things append :(’, ‘emerg’) // será mostrado em todos os níveis 
+api.log(‘Bad things append :(’, ‘emerg’) // será mostrado em todos os níveis
 ```
 
 ## Métodos

@@ -1,7 +1,7 @@
 ---
 title: Middleware
 type: guide
-order: 4
+order: 5
 ---
 
 > TODO
