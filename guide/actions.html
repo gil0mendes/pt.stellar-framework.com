@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Ações - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link current">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>Ações</h1>
+  <h2 id="O-que-e-uma-acao"><a href="#O-que-e-uma-acao" class="headerlink" title="O que é uma ação?"></a>O que é uma ação?</h2><p>As ações são os <em>building blocks</em> do Stellar, está é a unidade básica da Framework. Sendo o Stellar uma Framework baseada em ações, isto significa que existe um repositório com todas as ações registadas no projeto. Uma ação representa uma pequena funcionalidade do projeto, elas podem ser chamadas diretamente pelo cliente ou então por outras ações. As ações podem receber um conjunto de <em>inputs</em> que depois de processados devolvem um conjunto de <em>outputs</em>. Estas ações podem ser privadas, podendo apenas serem chamadas por outras ações e não pelo cliente e também podem ser sobrescritas por outros módulos, amenos que se encontrem protegidas contra isso.<br>Os desenvolvedores podem criar as suas próprias ações criando um novo ficheiro na pasta <code>actions</code> do módulo ou então recorrer à ferramenta de linha de comandos para gerar o ficheiros e a estrutura de forma automática (<code>stellar makeAction &lt;nome_da_action&gt; --module=&lt;modulo_onde_criar_a_ação&gt;</code>).<br>As ações são carregadas para o Engine quando este é iniciado, as ações podem ser chamadas em qualquer zona da aplicação, incluindo em outros módulos.<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.randomNumber = &#123;</span><br><span class="line">    name: <span class="string">'randomNumber'</span>,</span><br><span class="line">    description: <span class="string">'Generate a random number'</span>,</span><br><span class="line">    outputExample: &#123;</span><br><span class="line">        number: <span class="number">0.40420848364010453</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    run: <span class="function"><span class="keyword">function</span>(<span class="params">api, data, next</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// generate a random number</span></span><br><span class="line">        <span class="keyword">var</span> number = <span class="built_in">Math</span>.random()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// save the generated number on the response property</span></span><br><span class="line">        data.response.number = number</span><br><span class="line"></span><br><span class="line">        <span class="comment">// return a formated string</span></span><br><span class="line">        data.response.formatedNumber = <span class="string">'Your random number is '</span> + number</span><br><span class="line"></span><br><span class="line">        <span class="comment">// finish the action execution</span></span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (<code>name</code>) e a outra é a lógica (<code>run</code>) da ação, mas esta pode contem muitas mais informações adicionais tal como uma descrição, restrições aos valores de <em>input</em>, <em>middleware</em> e um exemplo de <em>output</em>. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas de forma a que todos os elementos possam de forma fácil ficar a saber de todas as funcionalidades do projeto sem terem que perguntar a outros elementos da equipa. Na figura acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar uma numero aleatório.<br>As ações são assíncronas e recebem uma referencia para a API (funções partilhadas do Engine), o objeto da conexão e a função de <em>callback</em>. Para completar a execução de uma ação basta chamar a função <code>next(error)</code>, se existir um erro, tem que se assegurar que se passa uma instância de <code>Error</code> e não uma <code>String</code>.<br>Por causa da anatomia das ações estas podem ser chamadas internamente pelo cliente ou através de outras ações sem a necessidade de alterações ou escrever código especifico para cada senário de utilização.</p>
+<h2 id="Propriedades"><a href="#Propriedades" class="headerlink" title="Propriedades"></a>Propriedades</h2><p>Existe um conjunto de opções a que podem ser adicionadas as ações, abaixo encontram-se enumeradas e descritas todas as opções disponíveis.</p>
+<ul>
+<li><code>name</code>: Identificador único da ação;</li>
+<li><code>description</code>: Descreve de forma extensa a ação (o seu objetivo), esta informação é importante para obter a documentação automática;</li>
+<li><code>inputs</code>: Enumera os parâmetros de entrada da ação. Também é possível aplicar restrições aos valores de <em>input</em>;</li>
+<li><code>middleware</code>: Indica os <em>middlewares</em> a serem aplicados antes e depois da execução da ação. Os <em>middlewares</em> globais são automaticamente aplicados;</li>
+<li><code>outputExample</code>: Contem um exemplo de uma resposta da ação. Este exemplo será anexado automaticamente à documentação gerada pelo Stellar;</li>
+<li><code>blockedConnectionTypes</code>: Permite bloquear tipos de conexões na ação que está a ser definida;</li>
+<li><code>logLevel</code>: Permite definir como a ação deve ser registada;</li>
+<li><code>toDocument</code>: Por defeito esta opção está definida para <code>true</code>, caso contrario não será gerada documentação para esta ação;</li>
+<li><code>run</code>: Por fim, a lógica da ação, trata-se de uma função composta por três parâmetros de entrada (api, action, next).</li>
+</ul>
+<blockquote>
+<p>Alguns dos meta dados, como o caso do <code>outputExample</code> e o <code>description</code>, são usados para alimentar a documentação automática.</p>
+</blockquote>
+<h2 id="Versoes"><a href="#Versoes" class="headerlink" title="Versões"></a>Versões</h2><p>O Stellar suporta múltiplas versões da mesma ação. Isto permite suportar ações com o mesmo nome, mas com funcionalidades melhoradas. Está funcionalidade é bastante util quando existem muitas aplicações cliente a se alimentar da API e pode-se assim atualizar cada aplicação individualmente para a nova API sem interrupção do serviço nas demais.</p>
+<p>As ações podem conter opcionalmente o parâmetro <code>version</code> para definir a versão da mesma. A quando o pedido do cliente pode-se usar o parâmetro <code>apiVersion</code> para pedir uma versão especifica da ação.</p>
+<blockquote>
+<p>Nota-se que quando não é especificado o parâmetro <code>apiVersion</code> o Stellar irá responder com a ultimas versão da ação.</p>
+</blockquote>
+<h2 id="Declaracao-de-Inputs"><a href="#Declaracao-de-Inputs" class="headerlink" title="Declaração de Inputs"></a>Declaração de Inputs</h2><p>Na declaração das ações podem ser indicados os campos de <em>input</em> recorrendo à propriedade <code>inputs</code>, isto fará com que sejam aplicadas restrições aos dados de entrada. Estas restrições podem ser validators já existentes no sistema, uma expressão regular ou uma função que retorna um <em>boolean</em> (em que <code>true</code> indica que o valor de <em>input</em> é valido).</p>
+<p>A lista a baixo mostra as opções disponíveis para a declaração dos <em>inputs</em>:</p>
+<ul>
+<li><code>required</code>: Este campo informa se o parâmetro é obrigatório;</li>
+<li><code>default</code>: Valor por defeito, caso o parâmetro não esteja presente no conjunto de <em>inputs</em> na chamada co cliente;</li>
+<li><code>validator</code>: Valida o parâmetro conta uma ou um conjunto de restrições.</li>
+</ul>
+<h2 id="Parametro-action"><a href="#Parametro-action" class="headerlink" title="Parâmetro action"></a>Parâmetro action</h2><p>O segundo parâmetro da função run, o objeto <code>data</code>, guarda o estado da conexão no momento em que a ação é chamada, neste momento os <em>midlewares</em> de pré processamento já foram executados e os valores de <em>input</em> validados.<br>O objetivo da maioria das ações é realizar uma série de operações e alterar os dados da resposta <code>data.response</code>, que posteriormente serão enviados para o cliente. É possível modificar as propriedades da conexão acedendo à <code>data.connection</code>, como por exemplo alterar os headers do pedido HTTP.<br>Caso o desenvolvedor não queira que o Engine envie uma resposta para o cliente (por exemplo, já foi enviado um erro), apenas tem que definir a propriedade <code>data.toRender</code> para <code>false</code>.</p>
+<p>———</p>
+<blockquote>
+<p>TODO</p>
+<ul>
+<li>middleware</li>
+</ul>
+</blockquote>
+
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/installation.html">Instalação</a></span>
+        
+        
+          <span style="float:right"><a href="/guide/tasks.html">Tarefas</a> →</span>
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/actions.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Visão Geral - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link current">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>Visão Geral</h1>
+  <h2 id="O-que-e"><a href="#O-que-e" class="headerlink" title="O que é?"></a>O que é?</h2><p>O Stellar é uma <em>Framework web</em> baseada em ações focada apenas no desenvolvimento de APIs. Estas APIs podem recorrer a três protocolos em simultâneo HTTP, WebSocket ou TCP, desta forma é possível usar a mesma API para responder a diferentes cenários de utilização. A <em>Framework</em> é escrita em JavaScript ES6 usando Node.JS. O objetivo do Stellar é criar um ambiente de desenvolvimento fácil de usar, reutilizável e que seja capaz de escalar, tornando o Stellar uma excelente solução tanto para pequenos projetos, como para projetos de dimensões empresariais.</p>
+<p>No Stellar não é usado o padrão MVC (este não faz sentido uma vez que o objetivo é não incluir a <em>view</em>), invés disso é usado um sistema baseados em ações. Isto quer dizer que todas as funcionalidades são representadas como ações, pode ler mais sobre ações na secção dedicada às mesmas.</p>
+<p>Uma instância de execução é capaz de responder tanto a pedidos dos clientes (HTTP, WebSocket, TCP), como processar tarefas (ações que são executadas de forma concorrente em <em>background</em>, como por exemplo o envio de um e-mail)</p>
+<h2 id="Arquitetura"><a href="#Arquitetura" class="headerlink" title="Arquitetura"></a>Arquitetura</h2><p>O Stellar é composto por um Engine e por uma série de Satellites. Por sua vez o Engine carrega os módulos, os módulos são a forma de agrupar funcionalidades de uma determinada área a fim de serem mais facilmente portadas para outros projetos ou partilhas na comunidade <em>Open Source</em>.</p>
+<blockquote>
+<p>TODO: Colocar uma imagem da arquitetura</p>
+</blockquote>
+<h2 id="Como-Contribuir"><a href="#Como-Contribuir" class="headerlink" title="Como Contribuir"></a>Como Contribuir</h2><p>Tanto a <a href="https://github.com/gil0mendes/pt.stellar-framework.com" target="_blank" rel="external">documentação</a> como o código do <a href="https://github.com/gil0mendes/stellar" target="_blank" rel="external">Stellar</a> estão disponíveis no GitHub. Pode submeter pull requests para o branch <code>dev</code>, mas antes, por favor, lei-a atentamente o <a href="https://github.com/gil0mendes/stellar/blob/dev/CONTRIBUTING.md" target="_blank" rel="external">guia de contribuição</a>. Toda a ajuda é bem vinda! 😉</p>
+<p>Também pode ajudar ao usar o gestor de <em>issues</em> para reportar <em>bugs</em>, fazer sugestões ou pedidos de funcionalidades.</p>
+<h2 id="Estrutura-da-Aplicacao"><a href="#Estrutura-da-Aplicacao" class="headerlink" title="Estrutura da Aplicação"></a>Estrutura da Aplicação</h2><p>A baixo está representada a estrutura de pastas típica de um projeto em Stellar, neste exemplo é uma API simples que implementa as funcionalidades de um blog.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── config</span><br><span class="line">│   └── (configurações a nivel do projeto)</span><br><span class="line">├── manifest.json</span><br><span class="line">├── modules</span><br><span class="line">│   └── blog</span><br><span class="line">│       ├── actions</span><br><span class="line">│       │   ├── posts.js</span><br><span class="line">│       │   └── comments.js</span><br><span class="line">│       ├── config</span><br><span class="line">│       │   └── comments.js</span><br><span class="line">│       ├── manifest.json</span><br><span class="line">│       ├── models</span><br><span class="line">│       │   ├── post.js</span><br><span class="line">│       │   └── comment.js</span><br><span class="line">│       ├── satellites</span><br><span class="line">│       │   └── something.js</span><br><span class="line">│       └── tasks</span><br><span class="line">│           └── rss.js</span><br><span class="line">└── temp</span><br><span class="line">    └── (ficheiros temporarios)</span><br></pre></td></tr></table></figure>
+<p>A pasta <code>/config</code> contem configurações a nível do projeto, isto que tanto as configurações de sistema, como as dos módulos, podem ser sobrescritas utilizando esta pasta. Em seguida, o ficheiro <code>manifest.json</code> contem a descrição do projeto (nome, versão, módulos ativos …). Existem também uma pasta com os módulos que compõem o projeto (que será falada mais à frente) e uma pasta <code>temp</code> que contem ficheiros temporários e logs gerados pelo Stellar.</p>
+
+
+  
+      <div class="guide-links">
+        
+        
+          <span style="float:right"><a href="/guide/installation.html">Instalação</a> →</span>
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/index.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

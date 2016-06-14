@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Instalação - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link current">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>Instalação</h1>
+  <h3 id="Compatibilidade"><a href="#Compatibilidade" class="headerlink" title="Compatibilidade"></a>Compatibilidade</h3><p>O Stellar não suporta versões do Node.js inferiores à 6, uma vez que o Stellar faz uso do ECMAScript 6 e algumas funcionalidades não são suportadas por versões anteriores.</p>
+<h3 id="Release-Notes"><a href="#Release-Notes" class="headerlink" title="Release Notes"></a>Release Notes</h3><p>Os detalhes das <em>releases</em> para cada versão estão disponíveis no GitHub na aba <a href="https://github.com/gil0mendes/stellar/releases" target="_blank" rel="external">Releases</a> e no ficheiro de <a href="https://github.com/gil0mendes/stellar/blob/dev/CHANGELOG.md" target="_blank" rel="external">Changelog</a>.</p>
+<h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>Como não poderia deixar de ser o NPM é a forma escolhida para distribuir e instalar o Stellar. </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ultima release</span></span><br><span class="line">npm install stellar</span><br></pre></td></tr></table></figure>
+<h2 id="Versoes-de-Desenvolvimento"><a href="#Versoes-de-Desenvolvimento" class="headerlink" title="Versões de Desenvolvimento"></a>Versões de Desenvolvimento</h2><p>Para usar a versão de desenvolvimento do Stellar basta fazer o <em>clone</em> do repositório no GitHub. O <em>branch</em> “master” contem a ultima versão estável da framework, já a versão de desenvolvimento encontra-se no <em>branch</em> “dev”.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> directorio/onde_o_stellar_sera_clonado</span><br><span class="line"></span><br><span class="line"><span class="comment"># faz o clone para a pasta atual</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/gil0mendes/stellar .</span><br><span class="line"></span><br><span class="line"><span class="comment"># instala das dependencias do Stellar</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># faz o transpile do código da pasta ‘/src’ para ES5</span></span><br><span class="line">npm run build </span><br><span class="line"></span><br><span class="line"><span class="comment"># adiciona a pasta ‘/bin’ ao path</span></span><br></pre></td></tr></table></figure>
+
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/index.html">Visão Geral</a></span>
+        
+        
+          <span style="float:right"><a href="/guide/actions.html">Ações</a> →</span>
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/installation.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

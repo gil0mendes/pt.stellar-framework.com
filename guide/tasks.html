@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Tarefas - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link current">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>Tarefas</h1>
+  <h2 id="O-que-sao-e-para-que-servem"><a href="#O-que-sao-e-para-que-servem" class="headerlink" title="O que são e para que servem?"></a>O que são e para que servem?</h2><p>As tarefas são trabalhos que correm separadamente dos pedidos dos clientes. Elas podem ser iniciados por uma ação ou pelo próprio servidor. Com o Stellar, não existe a necessidade de executar uma <em>deamon</em> separadamente para processar os trabalhos. O Stellar usa o pacote <code>node-resque</code> para armazenar e processar as tarefas.<br>No Stellar existem três modos de processar as tarefas: normal, com atraso e periodicamente. No processamento normal, as tarefas são inseridas na queue e processadas uma por uma pelo <code>TaskProcessor</code>. Quando a tarefa é executada com um atraso, ela é inserida numa <em>queue</em> especial para o efeito onde será processada algum tempo no futuro, o atraso é definido em milissegundos a partir da ora de inserção ou então através de uma <em>timestamp</em>. Por ultimo, as tarefas com execução periódica são como as tarefas com um atraso, mas são executas com uma certa frequência. As tarefas periódicas não conseguem receber parâmetros de entrada.<br>Por vezes os <em>workers</em> podem <em>crashar</em> de forma severa que não seja possível notificar o servidor Redis de que vão sair da <em>poll</em> (isto acontece inúmeras vezes em PAAS [Platform As A Service] como o Heroku). Quando isto acontece é necessário extrair a tarefa do <em>worker</em> que morreu, inserida numa <em>queue</em> especial para as tarefas que falharam, para serem reprocessados mais tarde e por fim remover o <em>worker</em>.</p>
+<blockquote>
+<p>Recomenda-se o uso de tarefas para o envio de emails e outras operações que podem ser executadas de forma assíncrona, a fim de diminuir o tempo de resposta dos pedidos do cliente.</p>
+</blockquote>
+<h2 id="Tipos-de-tarefas"><a href="#Tipos-de-tarefas" class="headerlink" title="Tipos de tarefas"></a>Tipos de tarefas</h2><p>Nesta sub secção será falado um pouco mais dos tipos de tarefas que existem e podem estas podem ser adicionadas ao sistema.</p>
+<p>Em primeiro, temos as tarefas normais. Este tipo de tarefas é adicionado numa <em>queue</em> e processadas por ordem de chegada assim que existirem <em>workers</em> livres.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// api.tasks.enqueue(nomeDaTarefa, argumentos, queue, callback)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">api.tasks.enqueue(‘sendResetPasswordEmail’, &#123; to: ‘gil00mendes@gmail.com’ &#125;, ‘<span class="keyword">default</span>’, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// tarefa inserida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Em seguida, temos as tarefas com atrazo. Estas tarefas não inseridas no momento, mas numa <em>queue</em> especial em que serão processadas num dado <em>timestamp</em> ou num atrazo de milissegundos.</p>
+<p>Podem ser executadas quando um determinado <em>timestamp</em> for atingido:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// api.tasks.enqueueAt(timestamp, nomeDaTarefa, argumentos, queue, callback)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">api.tasks.enqueueAt(<span class="number">1591629508</span>, ‘sendNotificationEmail’, &#123; to: ‘gil00mendes@gmail.com’ &#125;, ‘<span class="keyword">default</span>’, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// tarefa inserida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Ou, quando um determinado numero de milissegundos ter passado:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// api.tasks.enqueueIn(atrazo, nomeDaTarefa, argumentos, queue, callback)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">api.tasks.enqueueIn(<span class="number">60000</span>, ‘sendNotificationEmail’, &#123; to: ‘gil00mendes@gmail.com’ &#125;, ‘<span class="keyword">default</span>’, (error, toRun) =&gt; &#123;</span><br><span class="line">  <span class="comment">// tarefa inserida!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Criar-uma-acao"><a href="#Criar-uma-acao" class="headerlink" title="Criar uma ação"></a>Criar uma ação</h2><p>As ações estão contidas na pasta <code>/tasks</code> dentro de cada módulo. Para gerar uma nova tarefa pode ser usada a ferramenta de linha de comandos, usando o comando <code>stellar makeTask --name=nomeDaTarefa --module=nomeDoModulo</code>. As tarefas têm algumas propriedades obrigatórias, pode encontrar mais informação sobre este assunto no sub-capitulo a seguir.</p>
+<h3 id="Propriedades"><a href="#Propriedades" class="headerlink" title="Propriedades"></a>Propriedades</h3><p>A lista abaixo encontram-se listadas as propriedades suportadas pelas tarefas. A propriedade <code>name</code>, <code>description</code> e <code>run</code>, são obrigatórias.</p>
+<ul>
+<li><code>name</code>: Nome da tarefa, este deve ser único;</li>
+<li><code>description</code>: Deve conter uma pequena descrição da finalidade da tarefa;</li>
+<li><code>queue</code>: <code>Queue</code> onde irá correr a tarefa, por defeito esta propriedade assume o valor de <code>default</code>. Este valor pode ser substituído quando é usado o método <code>api.tasks.enqueue</code>;</li>
+<li><code>frequency</code>: Caso será superior a zero, será considerada uma tarefa periódica e será executada a cada passar dos milissegundos definidos nesta propriedade;</li>
+<li><code>plugins</code>: Nesta propriedade pode ser declarado um <em>array</em> de <em>plugins</em> resque, estes plugins modificam a forma como a tarefa é inserida na <em>queue</em>. Pode ler mais sobre isto na página do <a href="https://github.com/taskrabbit/node-resque" target="_blank" rel="external">node-resque</a>;</li>
+<li><code>pluginOptions</code>: Trata-se de uma <em>hash</em> com opções para os <em>plugins</em>;</li>
+<li><code>run(api, params, next)</code>: Função que contem as operações a serem realizadas pela tarefa.</li>
+</ul>
+<blockquote>
+<p>Para a declaração dos nomes das tarefas é recomendado que seja usado um <em>namespace</em>, como por exemplo, “auth::sessionValidation”.</p>
+</blockquote>
+<h3 id="Exemplo"><a href="#Exemplo" class="headerlink" title="Exemplo"></a>Exemplo</h3><p>O exemplo a baixo mostra a estrutura de uma tarefa, esta tarefa loga uma mensagem “Hello!!!” a cada 1 segundo:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.sayHello = &#123;</span><br><span class="line">  name: <span class="string">'sayHello'</span>,</span><br><span class="line">  description: <span class="string">'I say hello'</span>,</span><br><span class="line">  queue: <span class="string">'default'</span>,</span><br><span class="line">  frequency: <span class="number">1000</span>,</span><br><span class="line"></span><br><span class="line">  run: (api, params, next) =&gt; &#123;</span><br><span class="line">    <span class="comment">// loga uma mensagem</span></span><br><span class="line">    api.log(“Hello!!!”)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// finaliza a execução da tarefa</span></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>TODO</p>
+<ul>
+<li>Adicionar tarefas periódicas</li>
+<li>Gerir as tarefas/trabalhos</li>
+<li>Gerir as tarefas falhadas</li>
+</ul>
+</blockquote>
+
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/actions.html">Ações</a></span>
+        
+        
+          <span style="float:right"><a href="/guide/middleware.html">Middleware</a> →</span>
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/tasks.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

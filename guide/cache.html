@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Cache - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link current">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>Cache</h1>
+  <h2 id="Geral"><a href="#Geral" class="headerlink" title="Geral"></a>Geral</h2><p>O Stellar já vem equipado com um sistema de cache, é permitido usar números, strings, arrays e objetos. O sistema de cache, mas uso de um servidor Redis definido no ficheiro de configurações, nesse ficheiro também é possível indicar se é para usar um <em>fake server</em> para facilitar no desenvolvimento. Trata-se de um sistema distribuído de chave-valor, pode-se usar qualquer objeto que seja suportado pela função <code>JSON.stringify</code>.</p>
+<h2 id="Usar-a-cache"><a href="#Usar-a-cache" class="headerlink" title="Usar a cache"></a>Usar a cache</h2><p>No sistema de cache existem três métodos fundamentais para fazer a gestão dos objetivos guardados em <em>cache</em>. São eles os métodos <code>save</code>, <code>load</code> e <code>destroy</code>.</p>
+<h3 id="Adicionar-uma-entrada"><a href="#Adicionar-uma-entrada" class="headerlink" title="Adicionar uma entrada"></a>Adicionar uma entrada</h3><p>Para adicionar uma nova entrada na <em>cache</em> usa-se o método <code>api.cache.save(chave, valor, msAteExpirar, callback)</code>, este método também permite atualizar uma entrada já existente. O <code>msAteExpirar</code> pode ser <code>null</code> no caso de não querer que o objeto não expire. O parâmetro <code>callback</code> é um função que recebe dois parâmetros <code>callback(next, novoObjeto)</code>, em que o primeiro contem um erro caso exista e o segundo é o novo objeto criado na <em>cache</em>. No caso de estar a atualizar um objeto já existente o <code>novoObjeto</code> irá assumir o valor de <code>true</code>.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.save(‘websiteTile’, ‘XPTO Website’)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Atenção: Assim que o <code>msAteExpirar</code> for atingido a entrada será removida do sistema, mas pode não corresponder ao exato instante.</p>
+</blockquote>
+<h3 id="Obter-uma-entrada"><a href="#Obter-uma-entrada" class="headerlink" title="Obter uma entrada"></a>Obter uma entrada</h3><p>Para obter a entrada que se encontra em <em>cache</em> usa-se o método <code>api.cache.load(cache, callback)</code> ou <code>api.cache.load(cache, opções, callback)</code>, as opções deve ser uma <em>hash</em> que pode contem a propriedade <code>expireTimeMS</code>, que irá fazer o <em>reset</em> do tempo de expiração do valor, assim que for lido.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.load(‘webSiteTitle’, (error, value, expireTime, createdAt, readAt) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa com o valor lido!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>A função <em>callback</em> recebe os seguintes parâmetros:</p>
+<ul>
+<li><code>error</code>: assume o valor de <code>null</code> caso não exista nenhum erro;</li>
+<li><code>value</code>: contem o valor correspondente à chave pedida, ou <code>null</code> caso o registo não exista na <em>cache</em> ou tenha expirado;</li>
+<li><code>expireTime</code>: tempo em milissegundos em que o objeto irá expirar (tempo do sistema);</li>
+<li><code>createdAt</code>: tempo em milissegundos em que o objeto foi criado;</li>
+<li><code>readAt</code>: tempo em milissegundos em que o objeto foi lido pela ultima vez através do método <code>api.cache.load</code>, isto é util para saber se o objeto foi consumido recentemente por outro <em>worker</em>.</li>
+</ul>
+<h3 id="Remove-uma-entrada"><a href="#Remove-uma-entrada" class="headerlink" title="Remove uma entrada"></a>Remove uma entrada</h3><p>Para remover uma entrada da <em>cache</em> é tão fácil como chamar o método <code>api.cache.destroy(key, callback)</code>.</p>
+<ul>
+<li><code>key</code>: nome o objeto a ser destruido;</li>
+<li><code>callback(error, destroyed)</code>: função de <em>callback</em>;<ul>
+<li><code>error</code>: contem a informação do error, caso tenha ocorrido algum problema;</li>
+<li><code>destroyed</code>: <code>true</code> no caso de o objeto ter sido destruído, <code>false</code> no caso do objeto não ter sido encontrado.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.destroy(‘webSiteTile’, (error, destroyed) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa depois de destruir o objeto</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Metodos-de-Bloqueio"><a href="#Metodos-de-Bloqueio" class="headerlink" title="Métodos de Bloqueio"></a>Métodos de Bloqueio</h2><p>É possível, opcionalmente, usar métodos para bloquear a edição de objetos que se encontram na <em>cache</em>. Estes métodos são interessantes para cenários em que o Stellar se encontra a correr num <em>cluster</em>, corrigindo possíveis problemas de concorrência.</p>
+<h3 id="Bloquear"><a href="#Bloquear" class="headerlink" title="Bloquear"></a>Bloquear</h3><p>O método <code>api.cache.lock(key, expireTimeMS, next)</code> permite bloquear um objeto presente na <em>cache</em>. Abaixo encontra-se uma lista que descreve os parâmetros deste método:</p>
+<ul>
+<li><code>key</code>: nome do objeto a ser bloqueado;</li>
+<li><code>expireTimeMS</code>: este parâmetro é opcional, por defeito irá ser usado o valor definido no ficheiro de configuração <code>api.config.general.lockDuration</code>;</li>
+<li><code>next(error, lockOK)</code>: função de <em>callback</em>;<ul>
+<li><code>error</code>: objeto que contem as informações do erro, caso tenha ocorrido algum;</li>
+<li><code>lockOK</code>: irá tomar o valor de <code>true</code> ou <code>false</code>, depende se o bloqueio foi feito.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.lock(‘inTransaction’, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// Foi impossível obter o bloqueio!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Faz alguma coisa depois de obter o bloqueio!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Desbloquear"><a href="#Desbloquear" class="headerlink" title="Desbloquear"></a>Desbloquear</h3><p>Para desbloquear um objeto basta fazer uso do método <code>api.cache.unlock(key, next)</code>. A lista abaixo explica os parâmetros do método <em>unlock</em>:</p>
+<ul>
+<li><code>key</code>: nome do objeto a desbloquear;</li>
+<li><code>next(error, lockOK)</code>: função de callback;<ul>
+<li><code>error</code>: tem o valor de <code>null</code> caso não tenha ocorrido nenhum erro, caso contrario tera a informação do error;</li>
+<li><code>lockOK</code>: <code>true</code> no caso de o bloqueio ter sido removido, <code>false</code> caso contrario.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.unlock(‘inTransaction’, (error, lockOl’) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// foi impossível remover o bloqueio!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// o bloqueio foi removido!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Verifica-o-Bloqueio"><a href="#Verifica-o-Bloqueio" class="headerlink" title="Verifica o Bloqueio"></a>Verifica o Bloqueio</h3><p>Existe também um método que permite obter o estado de bloqueio de um determinado objeto, <code>api.cache.checkLock(key, retry, next)</code>. A lista abaixo mostra a descrição dos parâmetros:</p>
+<ul>
+<li><code>key</code>: nome do objeto do qual se quer verificar o bloqueio;</li>
+<li><code>next(error, lockOk)</code>: função de <em>callback</em>;<ul>
+<li><code>error</code>: <code>null</code> a não ser que tenha ocorrido um erro durante a ligação ao servidor Redis;</li>
+<li><code>lockOk</code>: <code>true</code> ou <code>false</code> dependendo do estado do bloqueio.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.chechLock(‘inTransaction’, (error, lockOk) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!lockOk) &#123;</span><br><span class="line">    <span class="comment">// o objeto não contem um bloqueio!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// o objeto encontra-se bloqueado!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Lista-de-Bloqueios"><a href="#Lista-de-Bloqueios" class="headerlink" title="Lista de Bloqueios"></a>Lista de Bloqueios</h3><p>O método <code>api.cache.locks(next)</code> permite obter todos os bloqueios ativos na plataforma.</p>
+<ul>
+<li><code>next(error, locks)</code>: função de <em>callback</em>;<ul>
+<li><code>error</code>: <code>null</code> ou a informação de erro caso ocorra algum;</li>
+<li><code>locks</code>: <code>array</code> com todos os bloqueios ativos.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.locks((error, locks) =&gt; &#123;</span><br><span class="line">  <span class="comment">// a variável ‘locks’ é um array que contem todos</span></span><br><span class="line">  <span class="comment">// os bloqueios ativos.</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/cluster.html">Cluster</a></span>
+        
+        
+          <span style="float:right"><a href="/guide/chat.html">Chat</a> →</span>
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/cache.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>
