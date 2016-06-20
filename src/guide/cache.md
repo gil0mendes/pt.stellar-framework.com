@@ -56,6 +56,72 @@ api.cache.destroy(‘webSiteTile’, (error, destroyed) => {
 })
 ```
 
+## Listas
+
+As listas têm um comportamento semelhante a uma _queue_, os elementos sai inseridos na cauda e retirados na cabeça da estrutura. As listas são uma excelente forma de guardar objetos que necessitam de ser processados por ordem ou mais tarde.
+
+### Inserir
+
+Para inserir um novo elemento na lista recorre-se ao método `api.cache.push(key, item, callback)`. Caso a lista exista o novo elemento será inserido no fim da lista, caso contrario uma nova lista será criada.
+
+* `key`: nome da lista onde pretende inserir o novo elemento;
+* `item`: item que retende guardar na lista;
+* `callback(error)`: Função de _callback_:
+ * `error`: assome o valor de `null` caso não tenha ocorrido nenhum error.
+
+```javascript
+api.cache.push(‘commands’, {player: ‘xpto’, command: ‘exec:abc:param1’}, error => {
+  if (error) {
+    // ocorreu um erro!
+    return
+  }
+
+  // elemento inserido
+})
+```
+
+> Atenção: Apenas pode guardar objetos suportados pela função `JSON.stringify`.
+
+### Obter
+
+Para obter um elemento da lista usa-se o método `api.cache.pop(key, callback)`. Caso a lista que procura não existir será retornado o valor `null`, caso contrario será obtido o elemento presente na cabeça da lista.
+
+* `key`: nome da lista de onde obter o elemento;
+* `callback(error, item)`: função de _callback_:
+ * `error`: assome o valor de `null` caso não ocorra nenhum error durante o pedido;
+ * `item`: item presente na cabeça da lista ou `null` no caso da lista não existir.
+
+```javascript
+api.cache.pop(‘commands’, (error, item) => {
+  if (error) {
+    // ocorreu um erro!
+    return
+  }
+
+  // faz alguma coisa com o `item`
+})
+```
+
+### Tamanho
+
+O Stellar, também permite obter o tamanho de uma lista que esteja em _cache_. No caso de ser feito um pedido do tamanho de uma lista que não exista será devolvido o valor de `0`. Para obter o tamanho usa-se a função `api.cache.listLength(key, callback)`:
+
+* `key`: noma da lista que se pretende obter o tamanho;
+* `callback(error, size)`: função de _callback_:
+ * `error`: `null` caso não ocorra nenhum erro com o pedido;
+ * `size`: tamanho da lista.
+
+```javascript
+api.cache.listLength(‘commands’, (error, size) => {
+  if (error) {
+    // ocorreu um erro!
+    return
+  }
+
+  // faz alguma coisa com o tamanho da lista
+})
+```
+
 ## Métodos de Bloqueio
 
 É possível, opcionalmente, usar métodos para bloquear a edição de objetos que se encontram na _cache_. Estes métodos são interessantes para cenários em que o Stellar se encontra a correr num _cluster_, corrigindo possíveis problemas de concorrência.
