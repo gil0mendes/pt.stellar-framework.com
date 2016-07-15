@@ -60,8 +60,45 @@ Na declaração das ações podem ser indicados os campos de _input_ recorrendo 
 A lista a baixo mostra as opções disponíveis para a declaração dos _inputs_:
 
 * `required`: Este campo informa se o parâmetro é obrigatório;
+* `convertTo`: Permite converter o parâmetro para um dado tipo de dados ou formato;
 * `default`: Valor por defeito, caso o parâmetro não esteja presente no conjunto de _inputs_ na chamada co cliente;
 * `validator`: Valida o parâmetro conta uma ou um conjunto de restrições.
+
+## Converter Parametros
+
+Para remover a necessidade dos desenvolvedores converterem manualmente os parâmetros o Stellar implementa uma forma de o fazer automaticamente antes da execução da ação. A propriedade `convertTo` pode ser uma _string_ com os valores (string, integer ou float) ou uma função.
+
+### Exemplo
+
+O exemplo abaixo mostra a convenção de um parâmetro para o tipo `Number`:
+
+```javascript
+exports.giveAge = {
+  name: 'giveAge',
+  description: 'Give the name and age based on the year of birth',
+
+  inputs: {
+    name: {
+      required: true
+    },
+    birthYear: {
+      required: true,
+      convertTo: ‘integer’
+    }
+  },
+
+  run: (api, action, next) => {
+    // calculate the person age (birthYear is already a number)
+    let age = new Date().getFullYear() - action.params.birthYear
+
+    // return a phrase with the name and age
+    action.response.result = `${action.params.name} has ${age}`
+
+    // finish the action execution
+    next()
+  }
+}
+```
 
 ## Parâmetro action
 
@@ -89,7 +126,7 @@ Por vezes serão criadas ações que os desenvolvedores não querem que sejam ch
 O exemplo abaixo mostra a chamada interna a ação ’sumANumber’, após a execução da ação é apresentado o resultado na consola. O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
 
 ```javascript
-api.actions.call(‘sumANumber’, {a: 3, b: 3}, (error, response) => {
+api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
   console.log(`Result => ${response.formatted}`)
 })
 ```
@@ -98,8 +135,9 @@ api.actions.call(‘sumANumber’, {a: 3, b: 3}, (error, response) => {
 
 ## Documentação Automatica
 
-O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que a não seja gerada uma página de documentação para uma data ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação gerada basta visitar o _link_ `http://example.com/files/docs`.
-———
+O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que a não seja gerada uma página de documentação para uma data ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação basta visitar o endereço `docs/index.html` no endereço do servidor HTTP.
+
+———
 
 > TODO
  * middleware
