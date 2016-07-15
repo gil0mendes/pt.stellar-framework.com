@@ -64,6 +64,31 @@ A lista a baixo mostra as opções disponíveis para a declaração dos _inputs_
 ## Parâmetro action
 
 O segundo parâmetro da função run, o objeto `data`, guarda o estado da conexão no momento em que a ação é chamada, neste momento os _midlewares_ de pré processamento já foram executados e os valores de _input_ validados.O objetivo da maioria das ações é realizar uma série de operações e alterar os dados da resposta `data.response`, que posteriormente serão enviados para o cliente. É possível modificar as propriedades da conexão acedendo à `data.connection`, como por exemplo alterar os headers do pedido HTTP.Caso o desenvolvedor não queira que o Engine envie uma resposta para o cliente (por exemplo, já foi enviado um erro), apenas tem que definir a propriedade `data.toRender` para `false`.
+
+## Chamadas Internas
+
+Com vista a melhorar o reaproveitamento de código e fazer uma melhor separação das ações que partilham parte da mesma lógica, o Stellar implementa um mecanismo que permite fazer chamadas internas a ações. Isso quer dizer que pode-se extrair parte da lógica de uma (ou mais) ações para ações mais simples, podendo essa mesma lógica ser usada por outras ações. Assim, a partir da composição de ações simples pode-se criar ações mais complexas sem tornar a leitura do código mais difícil ou dificultar a mantenabilidade das aplicações e módulos.
+
+
+Para chamar uma ação internamente recorresse ao método `api.actions.call(actionName, params, callback)`:
+
+* `actionName`: Nome da ação a ser chamada;
+* `params`: Parâmetros a serem passados à ação que vai ser executada;
+* `callback(error, response)`: função de __callback__:
+  * `error`: erro devolvido pela ação chamada;
+  * `response`: objeto com a resposta da ação chamada.
+
+### Exemplo
+
+```javascript
+api.actions.call(‘sumANumber’, {a: 3, b: 3}, (error, response) => {
+  console.log(`Result => ${response.formatted}`)
+})
+```
+
+O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
+
+> NOTA: Também é possível chamar ações na execução das tarefas.
 ———
 
 > TODO
