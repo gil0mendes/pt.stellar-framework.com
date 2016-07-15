@@ -42,6 +42,7 @@ Existe um conjunto de opções a que podem ser adicionadas as ações, abaixo en
 * `outputExample`: Contem um exemplo de uma resposta da ação. Este exemplo será anexado automaticamente à documentação gerada pelo Stellar;
 * `blockedConnectionTypes`: Permite bloquear tipos de conexões na ação que está a ser definida;
 * `logLevel`: Permite definir como a ação deve ser registada;
+* `protected`: Quando `true` impede que a ação seja subscrita por um módulo de maior prioridade;
 * `toDocument`: Por defeito esta opção está definida para `true`, caso contrario não será gerada documentação para esta ação;
 * `run`: Por fim, a lógica da ação, trata-se de uma função composta por três parâmetros de entrada (api, action, next).> Alguns dos meta dados, como o caso do `outputExample` e o `description`, são usados para alimentar a documentação automática.## Versões
 
