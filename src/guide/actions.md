@@ -43,6 +43,7 @@ Existe um conjunto de opções a que podem ser adicionadas as ações, abaixo en
 * `blockedConnectionTypes`: Permite bloquear tipos de conexões na ação que está a ser definida;
 * `logLevel`: Permite definir como a ação deve ser registada;
 * `protected`: Quando `true` impede que a ação seja subscrita por um módulo de maior prioridade;
+* `private`: A ação apenas pode ser chamada internamente;
 * `toDocument`: Por defeito esta opção está definida para `true`, caso contrario não será gerada documentação para esta ação;
 * `run`: Por fim, a lógica da ação, trata-se de uma função composta por três parâmetros de entrada (api, action, next).> Alguns dos meta dados, como o caso do `outputExample` e o `description`, são usados para alimentar a documentação automática.## Versões
 
@@ -79,7 +80,13 @@ Para chamar uma ação internamente recorresse ao método `api.actions.call(acti
   * `error`: erro devolvido pela ação chamada;
   * `response`: objeto com a resposta da ação chamada.
 
+### Ações Privadas
+
+Por vezes serão criadas ações que os desenvolvedores não querem que sejam chamadas pelos clientes, porque são apenas para uso interno, não realizam nenhuma operação relevante para o cliente ou são ações mais simples ou criticas que não devem ter exposição publica. Para isso o Stellar permite definir uma ação como privada, fazendo com que esta apenas possa ser chamada internamente. Para tornar uma ação privada basta adicionar a propriedade `private: true` na ação em questão.
+
 ### Exemplo
+
+O exemplo abaixo mostra a chamada interna a ação ’sumANumber’, após a execução da ação é apresentado o resultado na consola. O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
 
 ```javascript
 api.actions.call(‘sumANumber’, {a: 3, b: 3}, (error, response) => {
@@ -87,9 +94,7 @@ api.actions.call(‘sumANumber’, {a: 3, b: 3}, (error, response) => {
 })
 ```
 
-O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
-
-> NOTA: Também é possível chamar ações na execução das tarefas.
+> NOTA: Também é possível chamar ações nas tarefas.
 ———
 
 > TODO
