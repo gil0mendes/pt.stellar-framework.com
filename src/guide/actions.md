@@ -95,6 +95,10 @@ api.actions.call(‘sumANumber’, {a: 3, b: 3}, (error, response) => {
 ```
 
 > NOTA: Também é possível chamar ações nas tarefas.
+
+## Documentação Automatica
+
+O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que a não seja gerada uma página de documentação para uma data ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação gerada basta visitar o _link_ `http://example.com/files/docs`.
 ———
 
 > TODO
