@@ -31,7 +31,7 @@ exports.randomNumber = {
 }
 ```
 
-As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (`name`) e a outra é a lógica (`run`) da ação, mas esta pode contem muitas mais informações adicionais tal como uma descrição, restrições aos valores de _input_, _middleware_ e um exemplo de _output_. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas de forma a que todos os elementos possam de forma fácil ficar a saber de todas as funcionalidades do projeto sem terem que perguntar a outros elementos da equipa. Na figura acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar uma numero aleatório.As ações são assíncronas e recebem uma referencia para a API (funções partilhadas do Engine), o objeto da conexão e a função de _callback_. Para completar a execução de uma ação basta chamar a função `next(error)`, se existir um erro, tem que se assegurar que se passa uma instância de `Error` e não uma `String`.Por causa da anatomia das ações estas podem ser chamadas internamente pelo cliente ou através de outras ações sem a necessidade de alterações ou escrever código especifico para cada senário de utilização.## Propriedades
+As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (`name`) e a outra é a lógica (`run`) da ação, mas esta pode conter muitas mais informações adicionais tal como uma descrição, restrições aos valores de _input_, _middleware_ e um exemplo de _output_. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas de forma a que todos os elementos possam de forma fácil ficar a saber de todas as funcionalidades do projeto sem terem que perguntar a outros elementos da equipa. Na figura acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar uma numero aleatório.As ações são assíncronas e recebem uma referencia para a API (funções partilhadas do Engine), o objeto da conexão e a função de _callback_. Para completar a execução de uma ação basta chamar a função `next(error)`, se existir um erro, tem que se assegurar que se passa uma instância de `Error` e não uma `String`.Por causa da anatomia das ações estas podem ser chamadas internamente pelo cliente ou através de outras ações sem a necessidade de alterações ou escrever código especifico para cada senário de utilização.## Propriedades
 
 Existe um conjunto de opções a que podem ser adicionadas as ações, abaixo encontram-se enumeradas e descritas todas as opções disponíveis.
 
@@ -47,7 +47,7 @@ Existe um conjunto de opções a que podem ser adicionadas as ações, abaixo en
 * `toDocument`: Por defeito esta opção está definida para `true`, caso contrario não será gerada documentação para esta ação;
 * `run`: Por fim, a lógica da ação, trata-se de uma função composta por três parâmetros de entrada (api, action, next).> Alguns dos meta dados, como o caso do `outputExample` e o `description`, são usados para alimentar a documentação automática.## Versões
 
-O Stellar suporta múltiplas versões da mesma ação. Isto permite suportar ações com o mesmo nome, mas com funcionalidades melhoradas. Está funcionalidade é bastante util quando existem muitas aplicações cliente a se alimentar da API e pode-se assim atualizar cada aplicação individualmente para a nova API sem interrupção do serviço nas demais.
+O Stellar suporta múltiplas versões da mesma ação. Isto permite suportar ações com o mesmo nome, mas com funcionalidades melhoradas. Está funcionalidade é bastante útil quando existem muitas aplicações cliente a se alimentar da API e pode-se assim atualizar cada aplicação individualmente para a nova API sem interrupção do serviço nas demais.
 
 As ações podem conter opcionalmente o parâmetro `version` para definir a versão da mesma. A quando o pedido do cliente pode-se usar o parâmetro `apiVersion` para pedir uma versão especifica da ação.
 
@@ -106,7 +106,7 @@ O segundo parâmetro da função run, o objeto `data`, guarda o estado da conex�
 
 ## Chamadas Internas
 
-Com vista a melhorar o reaproveitamento de código e fazer uma melhor separação das ações que partilham parte da mesma lógica, o Stellar implementa um mecanismo que permite fazer chamadas internas a ações. Isso quer dizer que pode-se extrair parte da lógica de uma (ou mais) ações para ações mais simples, podendo essa mesma lógica ser usada por outras ações. Assim, a partir da composição de ações simples pode-se criar ações mais complexas sem tornar a leitura do código mais difícil ou dificultar a mantenabilidade das aplicações e módulos.
+Com vista a melhorar o reaproveitamento de código e fazer uma melhor separação das ações que partilham parte da mesma lógica, o Stellar implementa um mecanismo que permite fazer chamadas internas a ações. Isso quer dizer que se pode extrair parte da lógica de uma (ou mais) ações para ações mais simples, podendo essa mesma lógica ser usada por outras ações. Assim, a partir da composição de ações simples pode-se criar ações mais complexas sem tornar a leitura do código mais difícil ou dificultar a mantenabilidade das aplicações e módulos.
 
 
 Para chamar uma ação internamente recorresse ao método `api.actions.call(actionName, params, callback)`:
@@ -123,7 +123,7 @@ Por vezes serão criadas ações que os desenvolvedores não querem que sejam ch
 
 ### Exemplo
 
-O exemplo abaixo mostra a chamada interna a ação ’sumANumber’, após a execução da ação é apresentado o resultado na consola. O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
+O exemplo abaixo mostra a chamada interna da ação ’sumANumber’, após a execução da ação é apresentado o resultado na consola. O exemplo completo pode ser encontrado [aqui](https://github.com/gil0mendes/stellar/blob/dev/example/modules/test/actions/internalCalls.js).
 
 ```javascript
 api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
@@ -135,9 +135,30 @@ api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
 
 ## Documentação Automatica
 
-O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que a não seja gerada uma página de documentação para uma data ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação basta visitar o endereço `docs/index.html` no endereço do servidor HTTP.
+O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que a não seja gerada uma página de documentação para uma data ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação basta visitar o endereço `docs/index.html` no endereço do servidor HTTP.
 
-———
+## Middlewares
 
-> TODO
- * middleware
+É possível aplicar middlewares nas ações (antes e depois da execução das mesmas). Os middlewares podem ser globais (aplicados a todas as ações) ou locais, especificamente para cada ação através da propriedade `middleware` , fornecendo o nome de cada middleware a serem usados.
+
+Pode aprender mais sobre middlewares (aqui)[middleware.html].
+
+### Exemplo
+
+O exemplo abaixo mostra a declaração de uma ação que contem dois middlewares:
+
+```javascript
+exports.getAllAccounts = {
+  name: 'getAllAccounts',
+  description: 'Get all registered accounts',
+
+  middleware: ['auth', 'superResponse'],
+
+  run: (api, action, next) => {
+    // perforce some operation...
+
+    // finish action execution
+    next()
+  }
+}
+```
