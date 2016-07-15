@@ -151,6 +151,40 @@
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.destroy(‘webSiteTile’, (error, destroyed) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa depois de destruir o objeto</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Listas"><a href="#Listas" class="headerlink" title="Listas"></a>Listas</h2><p>As listas têm um comportamento semelhante a uma <em>queue</em>, os elementos sai inseridos na cauda e retirados na cabeça da estrutura. As listas são uma excelente forma de guardar objetos que necessitam de ser processados por ordem ou mais tarde.</p>
+<h3 id="Inserir"><a href="#Inserir" class="headerlink" title="Inserir"></a>Inserir</h3><p>Para inserir um novo elemento na lista recorre-se ao método <code>api.cache.push(key, item, callback)</code>. Caso a lista exista o novo elemento será inserido no fim da lista, caso contrario uma nova lista será criada.</p>
+<ul>
+<li><code>key</code>: nome da lista onde pretende inserir o novo elemento;</li>
+<li><code>item</code>: item que retende guardar na lista;</li>
+<li><code>callback(error)</code>: Função de <em>callback</em>:<ul>
+<li><code>error</code>: assome o valor de <code>null</code> caso não tenha ocorrido nenhum error.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.push(‘commands’, &#123;player: ‘xpto’, command: ‘exec:abc:param1’&#125;, error =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// ocorreu um erro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// elemento inserido</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Atenção: Apenas pode guardar objetos suportados pela função <code>JSON.stringify</code>.</p>
+</blockquote>
+<h3 id="Obter"><a href="#Obter" class="headerlink" title="Obter"></a>Obter</h3><p>Para obter um elemento da lista usa-se o método <code>api.cache.pop(key, callback)</code>. Caso a lista que procura não existir será retornado o valor <code>null</code>, caso contrario será obtido o elemento presente na cabeça da lista.</p>
+<ul>
+<li><code>key</code>: nome da lista de onde obter o elemento;</li>
+<li><code>callback(error, item)</code>: função de <em>callback</em>:<ul>
+<li><code>error</code>: assome o valor de <code>null</code> caso não ocorra nenhum error durante o pedido;</li>
+<li><code>item</code>: item presente na cabeça da lista ou <code>null</code> no caso da lista não existir.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.pop(‘commands’, (error, item) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// ocorreu um erro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// faz alguma coisa com o `item`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Tamanho"><a href="#Tamanho" class="headerlink" title="Tamanho"></a>Tamanho</h3><p>O Stellar, também permite obter o tamanho de uma lista que esteja em <em>cache</em>. No caso de ser feito um pedido do tamanho de uma lista que não exista será devolvido o valor de <code>0</code>. Para obter o tamanho usa-se a função <code>api.cache.listLength(key, callback)</code>:</p>
+<ul>
+<li><code>key</code>: noma da lista que se pretende obter o tamanho;</li>
+<li><code>callback(error, size)</code>: função de <em>callback</em>:<ul>
+<li><code>error</code>: <code>null</code> caso não ocorra nenhum erro com o pedido;</li>
+<li><code>size</code>: tamanho da lista.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.cache.listLength(‘commands’, (error, size) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// ocorreu um erro!</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// faz alguma coisa com o tamanho da lista</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h2 id="Metodos-de-Bloqueio"><a href="#Metodos-de-Bloqueio" class="headerlink" title="Métodos de Bloqueio"></a>Métodos de Bloqueio</h2><p>É possível, opcionalmente, usar métodos para bloquear a edição de objetos que se encontram na <em>cache</em>. Estes métodos são interessantes para cenários em que o Stellar se encontra a correr num <em>cluster</em>, corrigindo possíveis problemas de concorrência.</p>
 <h3 id="Bloquear"><a href="#Bloquear" class="headerlink" title="Bloquear"></a>Bloquear</h3><p>O método <code>api.cache.lock(key, expireTimeMS, next)</code> permite bloquear um objeto presente na <em>cache</em>. Abaixo encontra-se uma lista que descreve os parâmetros deste método:</p>
 <ul>
