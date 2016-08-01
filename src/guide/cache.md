@@ -152,12 +152,12 @@ api.cache.lock('inTransaction', (error, lockOk) => {
 Para desbloquear um objeto basta fazer uso do método `api.cache.unlock(key, callback)`. A lista abaixo explica os parâmetros do método _unlock_:
 
 * `key`: nome do objeto a desbloquear;
-* `callback(error, lockOK)`: função de callback;
-  * `error`: tem o valor de `null` caso não tenha ocorrido nenhum erro, caso contrario tera a informação do error;
+* `callback(error, lockOK)`: função de _callback_;
+  * `error`: tem o valor de `null` caso não tenha ocorrido nenhum erro, caso contrario terá a informação do erro;
   * `lockOK`: `true` no caso de o bloqueio ter sido removido, `false` caso contrario.
 
 ```javascript
-api.cache.unlock(‘inTransaction’, (error, lockOl’) => {
+api.cache.unlock('inTransaction', (error, lockOl’) => {
   if (!lockOk) {
     // foi impossível remover o bloqueio!
     return
@@ -177,7 +177,7 @@ Existe também um método que permite obter o estado de bloqueio de um determina
   * `lockOk`: `true` ou `false` dependendo do estado do bloqueio.
 
 ```javascript
-api.cache.chechLock(‘inTransaction’, (error, lockOk) => {
+api.cache.chechLock('inTransaction', (error, lockOk) => {
   if (!lockOk) {
     // o objeto não contem um bloqueio!
     return
