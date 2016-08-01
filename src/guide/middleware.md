@@ -43,4 +43,4 @@ O Stellar oferece _hooks_ para se executar código antes e depois de algumas aç
 
 ### Middleware de Chat
 
-Por ultimo, existe os _middlewares_ para o _chat_. Este tipo de _middleware_ é ativado quando um cliente se junta ou sai de uma sala, ou comunica dentro de uma sala de _chat_. Existem quatro tipos de _middleware_ para cada etapa: `say`, `onSayReceive`, `join` e `leave`.
+Por ultimo, existe os _middlewares_ para o _chat_. Este tipo de _middleware_ é ativado quando um cliente se junta ou sai de uma sala, ou comunica dentro de uma sala de _chat_. Existem quatro tipos de _middleware_ para cada etapa: `say`, `onSayReceive`, `join` e `leave.
