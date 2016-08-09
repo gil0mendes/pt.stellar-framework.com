@@ -71,7 +71,7 @@ Abaixo está representada a estrutura de pastas típica de um projeto em Stellar
 
   - **`actions`**: Contêm os ficheiros com a implementação das ações do módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.
 
-  - **`config`**: Contém as configurações do módulo. Estas configurações podem ser novas, devido as novas funcionalidades adicionadas pelo módulos, ou então subscrevem configurações do Stellar. Nota: Podes esclarecer isto?
+  - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, sendo assim sobrepõem-se as do _core_ e a configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
 
   - **`listeners`**: Contém os _listeners_ para os eventos que podem ocorrer ao longo do tempo de execução.
 
