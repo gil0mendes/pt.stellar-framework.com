@@ -89,3 +89,18 @@ Nota de revisão.: Noutra secção demonstrar o formato do ficheiro.
   - **`tasks`**: Esta pasta contêm a declaração das tarefas, são trabalhos a ser executados em _background_ de forma assíncrona.
 
 - **`temp`**: Por fim, esta pasta contem ficheiros temporários e _logs_ gerados pelo Stellar.
+
+### manifest.json
+
+O ficheiro **manifest.json** permite descrever o projeto, através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo com o formato deste ficheiro:
+
+```json
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Um sistema simples de blog com suporte a autenticação",
+  "modules": [
+    "authentication"
+  ]
+}
+```
