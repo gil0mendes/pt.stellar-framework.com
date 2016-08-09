@@ -6,11 +6,18 @@ order: 1
 
 ## O que é?
 
-O Stellar é uma _Framework web_ baseada em ações focada apenas no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de três protocolos diferentes em simultâneo (HTTP, WebSocket ou TCP), desta forma é possível usar a mesma API em diferentes cenários de utilização. A _Framework_ é escrita em JavaScript ES6 usando [Node.JS](https://nodejs.org/en/). O objetivo do Stellar é criar um ambiente de desenvolvimento fácil de usar, reutilizável e que seja capaz de escalar, tornando o Stellar uma excelente solução tanto para pequenos projetos, como para projetos de dimensões empresariais.
+O Stellar é uma _Framework web_ baseada em ações focada apenas no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de de múltiplos protocolos em simultâneo, sendo desta forma possível de usar a mesma API em diferentes cenários de utilização. A _Framework_ é escrita em JavaScript ES6 usando [Node.JS](https://nodejs.org/en/). O objetivo do Stellar é criar um ambiente de desenvolvimento fácil de usar, reutilizável e que seja capaz de escalar, tornando o Stellar uma excelente solução tanto para pequenos projetos, como para projetos de dimensões empresariais.
 
-No Stellar não é usado o padrão MVC (isso não fazia sentido uma vez que o objetivo é não incluir a parte das vistas), invés disso é usado um sistema baseados em ações. Isto quer dizer que todas as funcionalidades são representadas como ações, pode ler mais sobre ações na [secção](actions.html) dedicada às mesmas.
+Nota Revisão: Acho que não faz sentido especificar que não é MVC. Da mesma forma que não é MVVM, etc. Explica que é em função de REST actions ou qq coisa semelhante. 
 
-Uma instância de execução é capaz de responder tanto a pedidos dos clientes (HTTP, WebSocket, TCP), como processar tarefas (operações que são executadas de forma concorrente em _background_, como por exemplo o envio de um email).
+É usado um sistema baseados em ações. Isto quer dizer que todas as funcionalidades são representadas como ações, pode ler mais sobre ações na [secção](actions.html) dedicada às mesmas.
+
+Uma instância de execução é capaz de responder tanto a pedidos dos clientes, como processar tarefas - operações que são executadas de forma concorrente em _background_. Ex: envio de um email.
+
+## Protocolos Suportados
+* HTTP
+* WebSocket
+* TCP
 
 ## Arquitetura
 
@@ -26,7 +33,7 @@ Também pode ajudar ao usar o gestor de [_issues_](https://github.com/StellarFw/
 
 ## Estrutura de uma Aplicação
 
-A baixo está representada a estrutura de pastas típica de um projeto em Stellar, neste exemplo é uma API simples que implementa as funcionalidades de um blog.
+Abaixo está representada a estrutura de pastas típica de um projeto em Stellar. Neste exemplo é uma API simples que implementa as funcionalidades de um blog.
 
 ```
 .
@@ -58,26 +65,27 @@ A baixo está representada a estrutura de pastas típica de um projeto em Stella
     └── (ficheiros temporários)
 ```
 
-- **`config`**: Esta pasta contem configurações a nível do projeto. Estas configurações sobrepõem-se não só as configurações de sistema, mas também as dos módulos, assim sendo, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização, sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outras projetos.
+- **`config`**: Esta pasta contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também as dos módulos. Assim sendo, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização, sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outras projetos.
 
-- **`manifest.json`**: Este ficheiro contem a descrição do projeto, este é composto por três propriedades: nome do projeto, a sua versão e módulos ativos.
+- **`manifest.json`**: Este ficheiro contêm a descrição do projeto, composto por três propriedades: nome do projeto, versão e módulos ativos.
+Nota de revisão.: Noutra secção demonstrar o formato do ficheiro.
 
-- **`modules`**: Esta pasta contem todos os módulos que compõem a aplicação, estes módulos podem estar ou não a ser usados, conforma a propriedade `modules` do ficheiro `manifest.json`.
+- **`modules`**: Esta pasta contêm todos os módulos que compõem a aplicação, que podem estar ou não a ser usados, conforme a propriedade `modules` do ficheiro `manifest.json`.
 
-  - **`actions`**: Pasta que contem os ficheiros com a implementação das ações do módulos, estes ficheiros podem ser uma ação única ou então uma coleção de ações.
+  - **`actions`**: Pasta que contêm os ficheiros com a implementação das ações do módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.
 
-  - **`config`**: Esta pasta contém as configurações do módulo. Estas configurações podem ser nova, devido as novas funcionalidades adicionadas pelo módulos, ou então subscrevem configurações do Stellar.
+  - **`config`**: Esta pasta contém as configurações do módulo. Estas configurações podem ser novas, devido as novas funcionalidades adicionadas pelo módulos, ou então subscrevem configurações do Stellar. Nota: Podes esclarecer isto?
 
   - **`listeners`**: Esta pasta contém os _listeners_ para os eventos que podem ocorrer ao longo do tempo de execução.
 
-  - **`manifest.json`**: Este ficheiro contem a descrição do módulo. Este contem campos como: `id`, `name`, `version`, `description`, `npmDependencies`.
+  - **`manifest.json`**: Este ficheiro contêm a descrição do módulo através da descrição de: `id`, `name`, `version`, `description`, `npmDependencies`.
 
-  - **`middleware`**: A pasta contem a declaração de `middleware`, estes poderão ser utilizados em outros módulos.
+  - **`middleware`**: A pasta contêm a declaração de `middleware`, que poderão ser utilizados em outros módulos.
 
-  - **`models`**: Esta pasta contem a declaração dos modelos de dados, estes modelos correspondem à _syntax_ do [Mongoose](http://mongoosejs.com).
+  - **`models`**: Esta pasta contêm a declaração dos modelos de dados, correspondentes à _syntax_ do [Mongoose](http://mongoosejs.com).
 
-  - **`satellites`**: Esta pasta contem Satellites.
+  - **`satellites`**: Esta pasta contêm Satellites.
 
-  - **`tasks`**: Esta pasta contem a declaração das tarefas, são trabalhos a ser executados em _background_ de forma assíncrona.
+  - **`tasks`**: Esta pasta contêm a declaração das tarefas, são trabalhos a ser executados em _background_ de forma assíncrona.
 
 - **`temp`**: Por fim, esta pasta contem ficheiros temporários e _logs_ gerados pelo Stellar.
