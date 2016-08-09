@@ -21,7 +21,7 @@ Não existem limites no numero de salas que podem ser criadas, mas é necessári
 
 ## Métodos
 
-Existem métodos que permitem gerir as salas de _chat_ e os seus membros. Estes métodos não estão disponíveis diretamente para o cliente, mas podem caso crie uma ação.
+Existem métodos que permitem gerir as salas de _chat_ e os seus membros. Estes métodos não estão disponíveis diretamente para o cliente, mas podem ficar caso crie uma ação.
 
 ### Broadcast
 
@@ -45,7 +45,7 @@ api.chatRoom.list((error, rooms) => {
 
 ### Criar uma room
 
-Para criar uma _room_ usa-se o método `api.chatRoom.add(room, callback)`. A função _callback_ recebe um parâmetro que assome o valor de `0` quando a _room_ já existe e de `1` caso ela tenha sido criada. O código abaixo mostra a criação de um nova _room_ com o nome de "labs":
+Para criar uma _room_ usa-se o método `api.chatRoom.add(room, callback)`. A função _callback_ recebe um parâmetro que assume o valor de `0` quando a _room_ já existe e de `1` caso ela tenha sido criada. O código abaixo mostra a criação de uma nova _room_ com o nome de "labs":
 
 ```javascript
 api.chatRoom.add('labs', res => {
@@ -60,7 +60,7 @@ api.chatRoom.add('labs', res => {
 
 ### Remover uma room
 
-Usando o método `api.chatRoom.destroy(room, callback)` pode-se remover uma _room_. A função _callback_ não recebe nenhum parâmetro, a _room_ é sempre removida, o código a seguir mostra como a remoção pode ser feita:
+Usando o método `api.chatRoom.destroy(room, callback)` pode-se remover uma _room_. A função _callback_ não recebe  parâmetros, a _room_ é sempre removida, o código a seguir mostra como a remoção pode ser feita:
 
 ```javascript
 api.chatRoom.destroy('labs', () => {
@@ -72,10 +72,10 @@ api.chatRoom.destroy('labs', () => {
 
 Pode-se usar o método `api.chatRoom.exists(room, callback)` para verificar se uma _room_ existe na instância do Stellar. A função `callback(error, found)` recebe dois parâmetros:
 
-* `error`: assome o valor de `null` no caso se não ocorrer nenhum problema;
-* `found`: `true` no caso da _room_ ter sido encontrada, `false` em caso contrario.
+* `error`: assume o valor de `null` no caso se não ocorrer nenhum problema;
+* `found`: `true` no caso da _room_ ter sido encontrada, `false` caso contrario.
 
-O código abaixo mostra a verificar a existência da _room_ "coffeTable":
+O código abaixo mostra a verificação da existência da _room_ "coffeTable":
 
 ```javascript
 api.chatRoom.exists('coffeTable', (error, found) => {
@@ -93,7 +93,7 @@ api.chatRoom.exists('coffeTable', (error, found) => {
 Através do método `api.chatRoom.roomStatus(room, callback)` é possível obter informações do estado da _room_. A função `callback(error, state)`, recebe dois parâmetros:
 
 * `error`: `null` no caso de não ocorrer um erro durante a chamada do método;
-* `state`: é um _hash_ que contem informação sobre a _room_, nome, numero de membros inscritos e a lista desses membros.
+* `state`: é uma _hash_ que contem informação sobre a _room_, nome, número de membros inscritos e a lista desses membros.
 
 
 O código abaixo mostra como essa informação pode ser obtida e em seguida uma possível resposta:
@@ -120,7 +120,7 @@ api.chatRoom.roomStatus('Random', (error, status) => {
 
 Para adicionar um novo membro usa-se o método `api.chatRoom.addMember(connectionId, room, callback)`, é necessário o ID da conexão do cliente e o nome da _room_ onde se quer adicionar o novo membro. A função `callback(error, wasAdded)` recebe dois parâmetros:
 
-* `error`: `null` no caso de não ocorrer nenhum erro durante a chamada;
+* `error`: `null` no caso de não ocorrer erro durante a chamada;
 * `wasAdded`: pode assumir o valor de `true` ou `false` dependendo se o membro foi adicionado ou não.
 
 ```javascript
@@ -138,10 +138,10 @@ api.chatRoom.addMember(idDaConexao, 'newUsers', (error, wasAdded) => {
 
 ### Remover um membro
 
-O método `api.chatRoom.removeMember(connectionId, room, callback)` permite remover um membro de uma dada _room_. Para isso é necessário o ID da conexão do membro a ser removido e da _room_ de onde se pretende remover-lo. A função `callback(error wasRemoved)` recebe dois parâmetros:
+O método `api.chatRoom.removeMember(connectionId, room, callback)` permite remover um membro de uma dada _room_. Para isso é necessário o ID da conexão do membro a ser removido da _room_ de onde se pretende remover. A função `callback(error wasRemoved)` recebe dois parâmetros:
 
-* `error`: `null` no caso de não ocorrer nenhum error durante a operação;
-* `wasRemoved`: `true` no caso do membro ter sido removido, `false` caso contrario.
+* `error`: `null` no caso de não ocorrer erro durante a operação;
+* `wasRemoved`: `true` no caso do membro ter sido removido, `false` caso contrário.
 
 ```javascript
 api.chatRoom.removeMember(idDaConexao, 'heaven', (error, wasRemoved) => {
@@ -157,11 +157,11 @@ api.chatRoom.removeMember(idDaConexao, 'heaven', (error, wasRemoved) => {
 
 ## Middleware
 
-Existem quatro diferentes tipos de _middleware_ que podem ser instalados no sistema de _chat_: `say`, `onSayReceive`, `join` e `leave`. Toda a documentação sobre os _middlewares_ está disponível na [secção](./middleware.html) criada especificamente para este tema.
+Existem quatro tipos diferentes de _middleware_ que podem ser instalados no sistema de _chat_: `say`, `onSayReceive`, `join` e `leave`. Toda a documentação sobre os _middlewares_ está disponível na [secção](./middleware.html) criada especificamente para esse tema.
 
 ## Comunicar para um cliente especifico
 
-Cada objeto de conexão contem o método `connection.sendMessage(message)`, este método é acessível diretamente através do servidor.
+Cada objeto de conexão contém o método `connection.sendMessage(message)`, este método está acessível diretamente através do servidor.
 
 ```javascript
 connectionObj.sendMessage('Bem-Vindo ao Stellar :)')
@@ -169,4 +169,4 @@ connectionObj.sendMessage('Bem-Vindo ao Stellar :)')
 
 ## Funções do Cliente
 
-A forma como é possível comunicar através do cliente encontra-se descrita em uma sub-secção de cada tipo de servidor bidirecional [websocket](websocket.html) e [TCP](tcp.html).
+A forma como é possível comunicar através do cliente encontra-se descrita na sub-secção de cada tipo de servidor bidirecional [websocket](websocket.html) e [TCP](tcp.html).
