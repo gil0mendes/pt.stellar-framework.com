@@ -6,19 +6,19 @@ order: 7
 
 ## Objetivo
 
-O Stellar pode tanto correr num servidor único ou como parte de um _cluster_. O objetivo do _cluster_ é criar um conjunto de servidores que partilham o mesmo estado entre eles de forma a responderem a um maior numero de pedidos dos clientes e executar tarefas. Com este mecanismo, é possível adicionar e remover nós do _cluster_ sem haver perda de dados ou tarefas duplicadas. Também é possível executar múltiplas instâncias do Stellar na mesma maquina usando o comando `stellar startCluster`.
+O Stellar pode ser executado num servidor único ou como parte de um _cluster_. O objetivo do _cluster_ é criar um conjunto de servidores que partilham o mesmo estado entre eles de forma a responderem a um maior numero de pedidos dos clientes e executar tarefas. Com este mecanismo, é possível adicionar e remover nós do _cluster_ sem haver perda de dados ou tarefas duplicadas. Também é possível executar múltiplas instâncias do Stellar na mesma máquina usando o comando `stellar startCluster`.
 
 O nome das instâncias do _cluster_ sequenciais, começando em `stellar-worker-1`. O nome da instância pode ser obtido chamando o `api.id`.
 
 ## Cache
 
-Uma vez que o Stellar usa um _backend_ em Redis para reter informação das tarefas a serem executadas e objetos em _cache_, o _cluster_ tira partido desse sistema para partilhar a mesma informação através de todos os nós. Isto faz com que não sejam necessárias quaisquer alterações no código para aplicação para por fazer _deploy_ num _cluster_.
+Uma vez que o Stellar usa um _backend_ em Redis para reter informação das tarefas a serem executadas e objetos em _cache_, o _cluster_ tira partido desse sistema para partilhar a mesma informação através de todos os nós. Isto faz com que não seja necessário qualquer alteração no código para aplicação poder fazer _deploy_ num _cluster_.
 
 > Atenção: Outros clientes/servidores podem aceder à _cache_ em simultâneo. É necessário ter em atenção como se desenvolve as ações para não haver conflitos. Pode ler mais sobre [_cache_ aqui](cache.html).
 
 ## RPC
 
-O Stellar implementa um sistema de _Remote Procedure Calls_ (RPC), que permite executar um determinado comando em todos os nós do _cluster_ ou num nós especifico através do objetivo _connection_. Para fazer uso deste sistema apenas tem que usar o método `api.redis.doCluster(metodo, argumentos, Id_da_conexao, callback)`, ao especificar um _callback_, irá receber a primeira resposta do _cluster_ (ou um erro de _timeout_).
+O Stellar implementa um sistema de _Remote Procedure Calls_ (RPC), que permite executar um determinado comando em todos os nós do _cluster_ ou num nó especifico através do objeto _connection_. Para fazer uso deste sistema apenas tem que usar o método `api.redis.doCluster(metodo, argumentos, Id_da_conexao, callback)`, ao especificar um _callback_, irá receber a primeira resposta do _cluster_ (ou um erro de _timeout_).
 
 ### Exemplo
 
@@ -49,7 +49,7 @@ api.redis.subscriptionHandlers['tipoDaMensagem'] = menssage => {
 }
 ```
 
-Para enviar uma mensagem deve ser usado um código parecido com a seguir:
+Para enviar uma mensagem deve ser usado um código parecido com o seguinte:
 
 ```javascript
 let payload = {
