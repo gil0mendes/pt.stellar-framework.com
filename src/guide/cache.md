@@ -6,7 +6,7 @@ order: 8
 
 ## Geral
 
-O Stellar já vem equipado com um sistema de _cache_, é permitido usar números, _strings_, _arrays_ e objetos. . "(revê esteparagrafo) O sistema de _cache_, mas uso de um servidor Redis definido no ficheiro de configurações, nesse ficheiro também é possível indicar se é para usar um _fake server_ para facilitar no desenvolvimento.(:::) " Trata-se de um sistema distribuído de chave-valor, pode-se usar qualquer objeto que seja suportado pela função `JSON.stringify`.
+O Stellar já vem equipado com um sistema de _cache_, é permitido usar números, _strings_, _arrays_ e objetos. Trata-se de um sistema distribuído de chave-valor, faz uso de um servidor Redis e pode usar qualquer objeto que seja suportado pela função `JSON.stringify`.
 
 ## Usar a cache
 
