@@ -6,17 +6,17 @@ order: 4
 
 ## O que são e para que servem?
 
-As tarefas são trabalhos que correm separadamente dos pedidos dos clientes. Elas podem ser iniciados por uma ação ou pelo próprio servidor. Com o Stellar, não existe a necessidade de executar um _deamon_ separadamente para processar os trabalhos. O Stellar usa o pacote `node-resque` para armazenar e processar as tarefas.
-No Stellar existem três modos de processar as tarefas: normal, com atraso e periodicamente. No processamento normal, as tarefas são inseridas na _queue_ e processadas uma por uma pelo `TaskProcessor`. Quando a tarefa é executada com um atraso, ela é inserida numa _queue_ especial para o efeito onde será processada em algum momento no futuro, o atraso é definido em milissegundos a partir da hora de inserção ou então através de um _timestamp_. Por ultimo, as tarefas com execução periódica são como as tarefas com um atraso, mas são executas com uma certa frequência. As tarefas periódicas não conseguem receber parâmetros de entrada.
-Por vezes os _workers_ podem _crashar_ de forma severa que não seja possível notificar o servidor Redis de que vão sair da _poll_ (isto acontece inúmeras vezes em PAAS [Platform As A Service] como o Heroku). Quando isto acontece é necessário extrair a tarefa do _worker_ que morreu, inserida numa _queue_ especial para as tarefas que falharam, para serem reprocessados mais tarde e por fim remover o _worker_.
+As tarefas são trabalhos executados à parte dos pedidos dos clientes. Elas podem ser iniciadas por uma ação ou pelo próprio servidor. Com o Stellar, não existe a necessidade de executar um _deamon_ separadamente para processar os trabalhos. O Stellar usa o pacote `node-resque` para armazenar e processar as tarefas.
+No Stellar existem três modos de processar as tarefas: normal, com atraso e periodicamente. No processamento normal, as tarefas são inseridas na _queue_ e processadas uma a uma pelo `TaskProcessor`. Quando a tarefa é executada com um atraso, ela é inserida numa _queue_ especial para o efeito onde será processada num momento no futuro, o atraso é definido em milissegundos a partir da hora de inserção ou então através de um _timestamp_. Por último, as tarefas com execução periódica são semelhantes às tarefas com um atraso, mas são executas com uma determinada frequência. As tarefas periódicas não conseguem receber parâmetros de entrada.
+Por vezes os _workers_ podem _crashar_ de forma severa, não sendo possível notificar o servidor Redis de que vão sair da _poll_ (isto acontece inúmeras vezes em PAAS [Platform As A Service] como o Heroku). Quando isto acontece é necessário extrair a tarefa do _worker_ que morreu, inserida numa _queue_ especial para as tarefas que falharam, para serem reprocessados mais tarde e por fim remover o _worker_.
 
 > NOTA: Recomenda-se o uso de tarefas para o envio de emails e outras operações que podem ser executadas de forma assíncrona, a fim de diminuir o tempo de resposta dos pedidos do cliente.
 
 ## Tipos de tarefas
 
-Nesta sub secção será falado um pouco mais dos tipos de tarefas que existem e podem estas podem ser adicionadas ao sistema.
+Nesta sub secção será falado um pouco mais dos tipos de tarefas que existem e se podem ser adicionadas ao sistema.
 
-Em primeiro, temos as tarefas normais. Este tipo de tarefas é adicionado numa _queue_ e processadas por ordem de chegada assim que existirem _workers_ livres.
+Em primeiro, temos as tarefas normais. Este tipo de tarefas é adicionado numa _queue_ e processadas por ordem de chegada logo que existirem _workers_ livres.
 
 ```javascript
 // api.tasks.enqueue(nomeDaTarefa, argumentos, queue, callback)
@@ -25,7 +25,7 @@ api.tasks.enqueue('sendResetPasswordEmail', { to: 'gil00mendes@gmail.com' }, 'de
 })
 ```
 
-Em seguida, temos as tarefas com atraso. Estas tarefas não inseridas no momento, mas numa _queue_ especial em que serão processadas num dado _timestamp_ ou num atraso de milissegundos. Podem ser executadas quando um determinado _timestamp_ for atingido:
+Em seguida, temos as tarefas com atraso. Estas tarefas são inseridas no momento, mas numa _queue_ especial em que serão processadas num dado _timestamp_ ou num atraso de milissegundos. Podem ser executadas quando um determinado _timestamp_ for atingido:
 
 ```javascript
 // api.tasks.enqueueAt(timestamp, nomeDaTarefa, argumentos, queue, callback)
@@ -34,7 +34,7 @@ api.tasks.enqueueAt(1591629508, 'sendNotificationEmail', { to: 'gil00mendes@gmai
 })
 ```
 
-Ou, quando um determinado numero de milissegundos ter passado:
+Ou, quando um determinado numero de milissegundos t passado:
 
 
 ```javascript
@@ -55,7 +55,7 @@ A lista abaixo encontram-se listadas as propriedades suportadas pelas tarefas. A
 * `name`: Nome da tarefa, este deve ser único;
 * `description`: Deve conter uma pequena descrição da finalidade da tarefa;
 * `queue`: `Queue` onde irá correr a tarefa, por defeito esta propriedade assume o valor de `default`. Este valor pode ser substituído quando é usado o método `api.tasks.enqueue`;
-* `frequency`: Caso será superior a zero, será considerada uma tarefa periódica e será executada a cada passar dos milissegundos definidos nesta propriedade;
+* `frequency`: Caso o valor seja superior a zero, será considerada uma tarefa periódica e será executada a cada passar dos milissegundos definidos nesta propriedade;
 * `plugins`: Nesta propriedade pode ser declarado um _array_ de _plugins_ resque, estes plugins modificam a forma como a tarefa é inserida na _queue_. Pode ler mais sobre isto na página do [node-resque](https://github.com/taskrabbit/node-resque);
 * `pluginOptions`: Trata-se de uma _hash_ com opções para os _plugins_;
 * `run(api, params, next)`: Função que contem as operações a serem realizadas pela tarefa.
@@ -65,7 +65,7 @@ A lista abaixo encontram-se listadas as propriedades suportadas pelas tarefas. A
 
 ### Exemplo
 
-O exemplo a baixo mostra a estrutura de uma tarefa, esta tarefa regista uma mensagem "Hello!!!" a cada 1 segundo:
+O exemplo a baixo mostra a estrutura de uma tarefa, esta regista uma mensagem "Hello!!!" a cada 1 segundo:
 
 ```javascript
 exports.sayHello = {
@@ -94,7 +94,7 @@ Remove todas as tarefas que correspondem aos parâmetros passados na função `a
 - **`queue`**: nome da _queue_  onde o comando deve ser executado
 - **`taskName`**: nome da tarefa a eliminar
 - **`args`**: argumentos de pesquisa (mais informação ver a documentação do `node-resq`)
-- **`count`**: numero de instância da tarefa que devem ser removidas.
+- **`count`**: numero de instâncias da tarefa que devem ser removidas.
 
 ### Remover Tarefas com Atraso
 
@@ -161,7 +161,7 @@ O método `api.tasks.workers(callback)` permite obter uma lista com todos os `Ta
 
 O método `api.tasks.details(callback)` permite obter uma lista com informação das _queue_ da instância.
 
-### Numero de Falhados
+### Numero de Falhas
 
 O método `api.tasks.failedCount(callback)` devolve o numero de tarefas na _queue_ de operações falhadas.
 
