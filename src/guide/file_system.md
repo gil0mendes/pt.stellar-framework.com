@@ -6,9 +6,9 @@ order: 11
 
 ## Visão Geral
 
-O Stellar vem equipado com um sistema de ficheiro que permite aos clientes fazerem pedidos de ficheiros estáticos.
+O Stellar está equipado com um sistema de ficheiros que permite aos clientes fazer pedidos de ficheiros estáticos.
 
-Se um diretório for pedido em vez de um ficheiro, o Stellar irá procurar pelo ficheiro definido em `api.config.general.directoryFileType` (que por defeito contem o valor `index.html`). Se falhar ao encontrar o ficheiro será devolvido um erro.
+Se for pedido um diretório em vez de um ficheiro, o Stellar irá procurar pelo ficheiro definido em `api.config.general.directoryFileType` (que por defeito contem o valor `index.html`). Se falhar, por não encontrar o ficheiro será devolvido um erro.
 
 Pode-se usar o método `api.staticFile.get(connection, next)` nas ações para obter um ficheiro (em que `next(connection, error, fileStream, mime, length)`), o ficheiro a ser procurado será o definido em `connection.params.file`. Note-se que o fileStream é um _stream_ que pode ser _pipe'd_ para um cliente.
 
@@ -20,9 +20,9 @@ Nos clientes _web_ os _headers_ `Cache-Control` e `Expires` serão enviados, o v
 
 Para o _header_ `Content-Type` será usado o pacote [mime](https://npmjs.org/package/mime) para determinar o _mime_ do ficheiro.
 
-Os clientes podem pedir um ficheiro através do parâmetro `file` a quando a chamada de uma ação que faça uso do método `api.sendFile`, ou então podem fazer um pedido para o URL definido em `api.config.servers.web.urlPathForFiles` (por defeito é `/public`) e o Stellar irá procurar pelo ficheiro pedido na pasta `/public`.
+Os clientes podem pedir um ficheiro através do parâmetro `file` ao executar a chamada de uma ação que faça uso do método `api.sendFile`, ou então podem fazer um pedido para o URL definido em `api.config.servers.web.urlPathForFiles` (por defeito é `/public`), o Stellar irá procurar pelo ficheiro pedido na pasta `/public`.
 
-Também é possível enviar o conteudo de um ficheiro diretamente para um cliente, para isso basta usar o método `api.sendFile(connection, null, stream, 'text/html', length)`.
+Também é possível enviar o conteúdo de um ficheiro diretamente para um cliente, para isso basta usar o método `api.sendFile(connection, null, stream, 'text/html', length)`.
 
 ## Outros Clientes
 
@@ -32,7 +32,7 @@ O conteúdo do ficheiro é enviado em `raw`, que pode ser binário ou conter que
 
 ## Enviar Ficheiros pelas Ações
 
-É possível enviar ficheiros através das ações usando o método `connection.sendFile()`. Abaixo encontra-se um exemplo de uma chamada de sucesso e de falha:
+É possível enviar ficheiros através das ações usando o método `connection.sendFile()`. Abaixo encontra-se um exemplo de uma chamada de sucesso e outra de falha:
 
 ```javascript
 // ficheiro encontrado
