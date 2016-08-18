@@ -1,6 +1,6 @@
 # pt.stellar-framework.com
 
-Este site é construido em [hexo](http://hexo.io/). O conteudo do site é escrito no formato Markdown localizado na pasta `src`. Pull requestes são bem vindos 😉
+Este site é construido em [hexo](http://hexo.io/). O conteúdo do site é escrito no formato Markdown localizado na pasta `src`. Pull requestes são bem-vindos 😉
 
 ## Desenvolvimento
 
