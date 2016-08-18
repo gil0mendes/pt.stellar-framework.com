@@ -6,7 +6,7 @@ order: 9
 
 ## Para que serve?
 
-O Stellar já vem equipado com uma solução de salas de _chat_, que pode ser usada com todas as conexões persistentes (socket ou websocket). Existem métodos para criar e gerir as salas de _chat_ e os utilizadores dessas salas. Este sistema pode ser usado para diferentes finalidades, como por exemplo: atualização de dados em tempo real, propagação de informação de forma rápida entre clientes que estejam ligados e até mesmo para criação de jogos _multiplayer_ (uma vez que estes necessitam de constante partilha de informação entre todos os jogadores).
+O Stellar vem equipado com uma solução de salas de _chat_, que pode ser usada com todas as conexões persistentes (socket ou websocket). Existem métodos para criar e gerir as salas de _chat_ e os utilizadores dessas salas. Este sistema pode ser usado para diferentes finalidades, como por exemplo: atualização de dados em tempo real, propagação de informação de forma rápida entre clientes que estejam ligados e até mesmo para criação de jogos _multiplayer_ (uma vez que estes necessitam de constante partilha de informação entre todos os jogadores).
 
 Os clientes comunicam com as salas através de _verbs_. Os _verbs_ são comandos curtos que permitem alterar o estado da conexão, como juntar-se ou sair de uma sala. Os clientes podem estar em diferentes salas ao mesmo tempo. Os _verbs_ mais relevantes são:
 
@@ -15,9 +15,9 @@ Os clientes comunicam com as salas através de _verbs_. Os _verbs_ são comandos
 - roomView
 - say
 
-Esta funcionalidade pode ser usada _out-of-the-box_ sem que seja necessária qualquer instalação de pacotes adicionais, configuração ou programação. Por defeito, é criada uma sala com o nome "defaultRoom". Quando o servidor de websocket está ativo é gerado um _script_ de cliente que pode ser usado em aplicações _web_ para facilitar a chamada de ações e as comunicações com as salas de _chat_.
+Esta funcionalidade pode ser usada _out-of-the-box_ sem que seja necessária qualquer instalação de pacotes adicionais, configuração ou programação. Por defeito, é criada uma sala com o nome "defaultRoom". Quando o servidor de websocket está ativo é gerado um _script_ de cliente que pode ser usado em aplicações _web_ para facilitar a chamada de ações e a comunicação com as salas de _chat_.
 
-Não existem limites no numero de salas que podem ser criadas, mas é necessário ter em mente que cada sala guarda informação no Redis, assim existe carga por cada ligação criada.
+Não existe limite de salas que a ser criadas, mas é necessário ter em mente que cada sala guarda informação no Redis, assim existe carga por cada ligação criada.
 
 ## Métodos
 

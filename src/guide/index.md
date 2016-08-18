@@ -6,7 +6,7 @@ order: 1
 
 ## O que é?
 
-O Stellar é uma _Framework web_ baseada em ações focada no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de múltiplos protocolos em simultâneo, sendo desta forma possível usar a mesma API em diferentes cenários de utilização. A _Framework_ é escrita em JavaScript ES6 usando [Node.JS](https://nodejs.org/en/). O objetivo do Stellar é criar um ambiente de desenvolvimento de usabilidade fácil, reutilizável e capaz de escalar, tornando o Stellar uma excelente solução tanto para pequenos, como para projetos de dimensões empresariais.
+O Stellar é uma _Framework web_ baseada em ações e focada no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de múltiplos protocolos em simultâneo, sendo desta forma possível usar a mesma API em diferentes cenários de utilização. A _Framework_ é escrita em JavaScript ES6 usando [Node.JS](https://nodejs.org/en/). O objetivo do Stellar é criar um ambiente de desenvolvimento de usabilidade fácil, reutilizável e escalavél, tornando o Stellar uma excelente solução tanto para pequenos como para projetos de dimensões empresariais.
 
 É usado um sistema baseados em ações. Isto quer dizer que todas as funcionalidades são representadas como ações, pode ler mais sobre ações na [secção](actions.html) dedicada às mesmas.
 
@@ -25,13 +25,13 @@ O _core_ do Stellar é composto por um _Engine_, um conjunto de _Satellites_ e p
 
 ## Como Contribuir
 
-Tanto a [documentação](https://github.com/StellarFw/pt.stellar-framework.com) deste _website_ como o código do [Stellar](https://github.com/StellarFw/stellar) estão disponíveis no GitHub. Pode submeter _pull requests_ para o _branch_ `dev`, mas antes, por favor, lei-a atentamente o [guia de contribuição](https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md). Toda a ajuda é bem vinda! 😉
+Tanto a [documentação](https://github.com/StellarFw/pt.stellar-framework.com) deste _website_ como o código do [Stellar](https://github.com/StellarFw/stellar) estão disponíveis no GitHub. Pode submeter _pull requests_ para o _branch_ `dev`, mas antes, por favor, lei-a atentamente o [guia de contribuição](https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md). Toda a ajuda é bem-vinda! 😉
 
 Também pode ajudar ao usar o gestor de [_issues_](https://github.com/StellarFw/stellar/issues) para reportar _bugs_, fazer sugestões ou mesmo pedidos de funcionalidades.
 
 ## Estrutura de uma Aplicação
 
-Abaixo está representada a estrutura de pastas típica de um projeto em Stellar. Neste exemplo é uma API simples que implementa as funcionalidades de um blog.
+Abaixo está representada a estrutura de pastas típica de um projeto Stellar. Neste exemplo é uma API simples que implementa as funcionalidades de um blog.
 
 ```
 .
@@ -63,21 +63,29 @@ Abaixo está representada a estrutura de pastas típica de um projeto em Stellar
     └── (ficheiros temporários)
 ```
 
+<<<<<<< HEAD
 - **`config`**: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também as dos módulos. Assim, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização, sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outros projetos.
+=======
+- **`config`**: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também as dos módulos. Assim, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outros projetos.
+>>>>>>> c3d0846cfa8f4a43d91615404e3e35e3a07166bd
 
-- **`manifest.json`**: Este ficheiro contêm a descrição do projeto, composto por três propriedades: nome do projeto, versão e módulos ativos.
+- **`manifest.json`**: Este ficheiro contêm a descrição do projeto, composto por três propriedades: nome, versão e módulos ativos.
 
-- **`modules`**: Contêm todos os módulos que compõem a aplicação, que podem estar ou não a ser usados, conforme a propriedade `modules` do ficheiro `manifest.json`.
+- **`modules`**: Contêm todos os módulos que compõem a aplicação, que podem ser ou não usados, conforme a propriedade `modules` do ficheiro `manifest.json`.
 
   - **`actions`**: Contêm os ficheiros com a implementação das ações dos módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.
 
+<<<<<<< HEAD
   - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, sendo assim sobrepõem-se as do _core_ e às configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
+=======
+  - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, assim sobrepõem-se às do _core_ e configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
+>>>>>>> c3d0846cfa8f4a43d91615404e3e35e3a07166bd
 
-  - **`listeners`**: Contém os _listeners_ para os eventos que podem ocorrer ao longo do tempo de execução.
+  - **`listeners`**: Contém os _listeners_ dos eventos que podem ocorrer ao longo do tempo de execução.
 
   - **`manifest.json`**: Este ficheiro contêm a descrição do módulo através da descrição de: `id`, `name`, `version`, `description`, `npmDependencies`.
 
-  - **`middleware`**: Contêm a declaração de `middleware`, que poderão ser utilizados em outros módulos.
+  - **`middleware`**: Contêm a declaração de `middleware`, que poderá ser utilizada em outros módulos.
 
   - **`models`**: Contêm a declaração dos modelos de dados, correspondentes à _syntax_ do [Mongoose](http://mongoosejs.com).
 
@@ -89,7 +97,11 @@ Abaixo está representada a estrutura de pastas típica de um projeto em Stellar
 
 ### manifest.json
 
+<<<<<<< HEAD
 O ficheiro **manifest.json** permite descrever o projeto através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo com o formato deste ficheiro:
+=======
+O ficheiro **manifest.json** permite descrever o projeto através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo do formato deste ficheiro:
+>>>>>>> c3d0846cfa8f4a43d91615404e3e35e3a07166bd
 
 ```json
 {
