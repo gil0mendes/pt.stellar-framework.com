@@ -6,15 +6,15 @@ order: 8
 
 ## Geral
 
-O Stellar já vem equipado com um sistema de _cache_, é permitido usar números, _strings_, _arrays_ e objetos. O sistema de _cache_, mas uso de um servidor Redis definido no ficheiro de configurações, nesse ficheiro também é possível indicar se é para usar um _fake server_ para facilitar no desenvolvimento. Trata-se de um sistema distribuído de chave-valor, pode-se usar qualquer objeto que seja suportado pela função `JSON.stringify`.
+O Stellar já vem equipado com um sistema de _cache_, é permitido usar números, _strings_, _arrays_ e objetos. . "(revê esteparagrafo) O sistema de _cache_, mas uso de um servidor Redis definido no ficheiro de configurações, nesse ficheiro também é possível indicar se é para usar um _fake server_ para facilitar no desenvolvimento.(:::) " Trata-se de um sistema distribuído de chave-valor, pode-se usar qualquer objeto que seja suportado pela função `JSON.stringify`.
 
 ## Usar a cache
 
-No sistema de _cache_ existem três métodos fundamentais para fazer a gestão dos objetivos guardados em _cache_. São eles os métodos `save`, `load` e `destroy`.
+No sistema de _cache_ existem três métodos fundamentais para fazer a gestão dos objetivos guardados em _cache_. São estes os métodos `save`, `load` e `destroy`.
 
 ### Adicionar uma entrada
 
-Para adicionar uma nova entrada na _cache_ usa-se o método `api.cache.save(chave, valor, msAteExpirar, callback)`, este método também permite atualizar uma entrada já existente. O `msAteExpirar` pode ser `null` no caso de não querer que o objeto não expire. O parâmetro `callback` é um função que recebe dois parâmetros `callback(callback, novoObjeto)`, em que o primeiro contem um erro caso exista e o segundo é o novo objeto criado na _cache_. No caso de estar a atualizar um objeto já existente o `novoObjeto` irá assumir o valor de `true`.
+Para adicionar uma nova entrada na _cache_ usa-se o método `api.cache.save(chave, valor, msAteExpirar, callback)`, este método também permite atualizar uma entrada já existente. O `msAteExpirar` pode ser `null` no caso de não querer que o objeto expire. O (parâmetro) `callback` é uma função que recebe dois parâmetros `callback(callback, novoObjeto)`, em que o primeiro contem um erro caso exista e o segundo é o novo objeto criado na _cache_. No caso de estar a atualizar um objeto já existente o `novoObjeto` irá assumir o valor de `true`.
 
 ```javascript
 api.cache.save('websiteTile', 'XPTO Website')
@@ -34,7 +34,7 @@ api.cache.load('webSiteTitle', (error, value, expireTime, createdAt, readAt) => 
 
 A função _callback_ recebe os seguintes parâmetros:
 
-- **`error`**: assume o valor de `null` caso não exista nenhum erro;
+- **`error`**: assume o valor de `null` caso não exista erro;
 - **`value`**: contem o valor correspondente à chave pedida, ou `null` caso o registo não exista na _cache_ ou tenha expirado;
 - **`expireTime`**: tempo em milissegundos em que o objeto irá expirar (tempo do sistema);
 - **`createdAt`**: tempo em milissegundos em que o objeto foi criado;
@@ -58,16 +58,16 @@ api.cache.destroy('webSiteTile', (error, destroyed) => {
 
 ## Listas
 
-As listas têm um comportamento semelhante a uma _queue_, os elementos sai inseridos na cauda e retirados na cabeça da estrutura. As listas são uma excelente forma de guardar objetos que necessitam de ser processados por ordem ou mais tarde.
+As listas têm um comportamento semelhante a uma _queue_, os elementos são inseridos na cauda e retirados na cabeça da estrutura. As listas são uma excelente forma de guardar objetos que necessitam de ser processados por ordem ou mais tarde.
 
 ### Inserir
 
 Para inserir um novo elemento na lista recorre-se ao método `api.cache.push(key, item, callback)`. Caso a lista exista o novo elemento será inserido no fim da lista, caso contrario uma nova lista será criada.
 
 - **`key`**: nome da lista onde pretende inserir o novo elemento;
-- **`item`**: item que retende guardar na lista;
+- **`item`**: item que pretende guardar na lista;
 - **`callback(error)`**: Função de _callback_:
-  - **`error`**: assome o valor de `null` caso não tenha ocorrido nenhum erro.
+  - **`error`**: assume o valor de `null` caso não tenha ocorrido erro.
 
 ```javascript
 api.cache.push('commands', {player: 'xpto', command: 'exec:abc:param1'}, error => {
@@ -84,12 +84,12 @@ api.cache.push('commands', {player: 'xpto', command: 'exec:abc:param1'}, error =
 
 ### Obter
 
-Para obter um elemento da lista usa-se o método `api.cache.pop(key, callback)`. Caso a lista que procura não existir será retornado o valor `null`, caso contrario será obtido o elemento presente na cabeça da lista.
+Para obter um elemento da lista usa-se o método `api.cache.pop(key, callback)`. Caso a lista que procura não exista, será retornado o valor `null`, caso contrario será obtido o elemento presente na cabeça da lista.
 
 - **`key`**: nome da lista de onde obter o elemento;
 - **`callback(error, item)`**: função de _callback_:
-  - **`error`**: assome o valor de `null` caso não ocorra nenhum erro durante o pedido;
-  - **`item`**: item presente na cabeça da lista ou `null` no caso da lista não existir.
+  - **`error`**: assume o valor de `null` caso não ocorra erro durante o pedido;
+  - **`item`**: item presente na cabeça da lista ou `null`  caso a lista não exista.
 
 ```javascript
 api.cache.pop('commands', (error, item) => {
@@ -104,11 +104,11 @@ api.cache.pop('commands', (error, item) => {
 
 ### Tamanho
 
-O Stellar, também permite obter o tamanho de uma lista que esteja em _cache_. No caso de ser feito um pedido do tamanho de uma lista que não exista será devolvido o valor de `0`. Para obter o tamanho usa-se a função `api.cache.listLength(key, callback)`:
+O Stellar, também permite obter o tamanho de uma lista que esteja em _cache_. No caso de ser feito um pedido do tamanho de uma lista que não exista, será devolvido o valor de `0`. Para obter o tamanho usa-se a função `api.cache.listLength(key, callback)`:
 
-- **`key`**: noma da lista que se pretende obter o tamanho;
+- **`key`**: nome da lista que se pretende obter o tamanho;
 - **`callback(error, size)`**: função de _callback_:
-  - **`error`**: `null` caso não ocorra nenhum erro com o pedido;
+  - **`error`**: `null` caso não ocorra erro com o pedido;
   - **`size`**: tamanho da lista.
 
 ```javascript

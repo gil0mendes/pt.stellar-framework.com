@@ -6,7 +6,7 @@ order: 3
 
 ## O que é uma ação?
 
-As ações são os _building blocks_ do Stellar, está é a unidade básica da _Framework_. Sendo o Stellar uma _Framework_ baseada em ações, isto significa que existe um repositório com todas as ações registadas no projeto. Uma ação representa uma pequena funcionalidade do projeto, elas podem ser chamadas diretamente pelo cliente ou então internamente por outras ações. As ações podem receber um conjunto de _inputs_ que depois de processados devolvem um conjunto de _outputs_. Estas ações podem ser privadas, podendo apenas serem chamadas por outras ações e não pelo cliente e também podem ser sobrescritas por outros módulos, amenos que se encontrem protegidas.
+As ações são os _building blocks_ do Stellar, esta é a unidade básica da _Framework_. Sendo o Stellar uma _Framework_ baseada em ações, isto significa que existe um repositório com todas as ações registadas no projeto. Uma ação representa uma pequena funcionalidade do projeto, elas podem ser chamadas diretamente pelo cliente ou então internamente por outras ações. As ações podem receber um conjunto de _inputs_ que depois de processados devolvem um conjunto de _outputs_. Estas ações podem ser privadas, podendo apenas serem chamadas por outras ações e não pelo cliente e também podem ser sobrescritas por outros módulos, a menos que se encontrem protegidas.
 Os desenvolvedores podem criar as suas próprias ações através da criação de um novo ficheiro na pasta `actions` do módulo em que está a trabalhar, ou então faz uso da ferramenta de linha de comandos para gerar o ficheiro e a estrutura de forma automática (`stellar makeAction <nome_da_action> --module=<modulo_onde_criar_a_ação>`).
 As ações são carregadas para o _Engine_ quando este é iniciado, as ações podem ser chamadas em qualquer zona da aplicação, incluindo em outros módulos.
 
@@ -34,7 +34,7 @@ exports.randomNumber = {
 }
 ```
 
-As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (`name`) e a outra é a lógica da ação (`run`), mas esta pode conter muitas mais informações adicionais tal como uma descrição, restrições aos valores de _input_, _middleware_ e um exemplo de _output_. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas uma vez que todos os elementos podem de forma fácil ficar a conhecer todas as funcionalidades do projeto sem terem que estar constantemente a perguntar a outros elementos da equipa. No excerto de código acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar uma numero aleatório.
+As ações são compostas por duas propriedades obrigatórias, uma é a identificação da ação (`name`), a outra é a lógica da ação (`run`), mas estas pode conter muitas mais informações adicionais tal como uma descrição, restrições aos valores de _input_, _middleware_ e um exemplo de _output_. Com esta meta informação o Stellar é capaz de gerar documentação de forma totalmente automática sem intervenção humana. Isto é excelente para grandes equipas uma vez que todos os elementos podem de forma fácil ficar a conhecer todas as funcionalidades do projeto sem terem que estar constantemente a perguntar a outros elementos da equipa. No excerto de código acima pode-se ver a estrutura de uma ação, esta ação é responsável por gerar um numero aleatório.
 
 As ações são assíncronas e recebem uma referencia para a API (funções partilhadas do _Engine_), o objeto com o a ação e a função de _callback_. Para completar a execução de uma ação basta chamar a função `next(error)`. Se existir um erro, tem que se assegurar que se passa uma instância de `Error` e não uma `String` como argumento da função `next`, isto fará com que seja gerada uma mensagem de erro que será enviada ao cliente.
 
@@ -62,9 +62,9 @@ Existe um conjunto de opções que podem ser adicionadas as ações, abaixo enco
 
 O Stellar suporta múltiplas versões da mesma ação- Isto permite suportar ações com o mesmo nome, mas com funcionalidades melhoradas. Esta funcionalidade é bastante útil quando existem muitas aplicações cliente a se alimentar da API e pode-se assim atualizar cada aplicação individualmente para a nova API sem interrupção do serviço nas demais aplicações.
 
-As ações podem conter opcionalmente o parâmetro `version` para definir a versão da mesma. A quando o pedido do cliente pode-se usar o parâmetro `apiVersion` para pedir uma versão especifica da ação.
+As ações podem conter opcionalmente o parâmetro `version` para definir a versão da mesma. Aquando do pedido do cliente pode-se usar o parâmetro `apiVersion` para pedir uma versão especifica da ação.
 
-> Nota-se que quando não é especificado o parâmetro `apiVersion` o Stellar irá responder com a ultimas versão da ação.
+> Note-se que, quando não é especificado o parâmetro `apiVersion` o Stellar irá responder com a ultimas versão da ação.
 
 ## Declaração de Inputs
 
@@ -75,7 +75,7 @@ A lista a baixo mostra as opções disponíveis para a declaração dos _inputs_
 - **`required`**: Este campo informa se o parâmetro é obrigatório;
 - **`convert`**: Permite converter o parâmetro para um dado tipo de dados ou formato;
 - **`default`**: Valor por defeito, caso o parâmetro não esteja presente no conjunto de _inputs_ na chamada do cliente;
-- **`validator`**: Valida o parâmetro conta uma ou um conjunto de restrições.
+- **`validator`**: Valida o parâmetro, conta uma, ou um conjunto de restrições.
 
 ## Converter Parametros
 
@@ -119,12 +119,12 @@ O segundo parâmetro da função run, o objeto `data`, guarda o estado da conex�
 
 ![Propriedades do Objeto Action](/images/action_obj.png)
 
-O objetivo da maioria das ações é realizar uma série de operações e alterar os dados da resposta `data.response`, que posteriormente serão enviados para o cliente. É possível modificar as propriedades da conexão acedendo à `data.connection`, como por exemplo alterar os _headers_ do pedido HTTP.
+O objetivo da maioria das ações é realizar uma série de operações e alterar os dados de resposta `data.response`, que posteriormente serão enviados para o cliente. É possível modificar as propriedades da conexão acedendo à `data.connection`, como por exemplo alterar os _headers_ do pedido HTTP.
 Caso o desenvolvedor não queira que o _Engine_ envie uma resposta para o cliente (por exemplo, já foi enviado um erro), apenas tem que definir a propriedade `data.toRender` para `false`.
 
 ## Chamadas Internas
 
-Com vista a melhorar o reaproveitamento de código e fazer uma melhor separação das ações que partilham parte da mesma lógica, o Stellar implementa um mecanismo que permite fazer chamadas internas a ações. Isso quer dizer que se pode extrair parte da lógica de uma (ou mais) ações para ações mais simples, podendo essa mesma lógica ser usada por outras ações. Assim, a partir da composição de ações simples pode-se criar ações mais complexas sem tornar a leitura do código mais difícil ou dificultar a mantenabilidade das aplicações e módulos.
+Com vista a melhorar o reaproveitamento de código e fazer uma melhor separação das ações que partilham parte da mesma lógica, o Stellar implementa um mecanismo que permite fazer chamadas internas a ações. Isso quer dizer que se pode extrair parte da lógica de uma (ou mais) ações para ações mais simples, podendo essa mesma lógica ser usada por outras ações. Assim, a partir da composição de ações simples pode-se criar ações mais complexas sem tornar a leitura do código mais difícil ou principalment dificultar a mantenabilidade das aplicações e módulos.
 
 
 Para chamar uma ação internamente recorresse ao método `api.actions.call(actionName, params, callback)`:
@@ -153,7 +153,7 @@ api.actions.call('sumANumber', {a: 3, b: 3}, (error, response) => {
 
 ## Documentação Automática
 
-O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que a não seja gerada uma página de documentação para uma data ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação basta visitar o endereço `docs/index.html` no endereço do servidor HTTP.
+O Stellar permite gerar documentação das ações de forma completamente automática. A informação necessária é extraída através da declaração das propriedades das ações. Para fazer com que não seja gerada uma página de documentação para uma dada ação adiciona-se a propriedade `toDocument: false` na ação em questão, caso queira desativar para todas as ações define-se a configuração `api.config.general.generateDocumentation` para `false`. Para aceder à documentação basta visitar o endereço `docs/index.html` no endereço do servidor HTTP.
 
 ![Documentação Automática](/images/auto_docs.png)
 

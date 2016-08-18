@@ -6,7 +6,7 @@ order: 1
 
 ## O que é?
 
-O Stellar é uma _Framework web_ baseada em ações focada apenas no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de de múltiplos protocolos em simultâneo, sendo desta forma possível de usar a mesma API em diferentes cenários de utilização. A _Framework_ é escrita em JavaScript ES6 usando [Node.JS](https://nodejs.org/en/). O objetivo do Stellar é criar um ambiente de desenvolvimento fácil de usar, reutilizável e que seja capaz de escalar, tornando o Stellar uma excelente solução tanto para pequenos projetos, como para projetos de dimensões empresariais.
+O Stellar é uma _Framework web_ baseada em ações focada no desenvolvimento de APIs. Cada instância de execução do Stellar pode responder a pedidos de múltiplos protocolos em simultâneo, sendo desta forma possível usar a mesma API em diferentes cenários de utilização. A _Framework_ é escrita em JavaScript ES6 usando [Node.JS](https://nodejs.org/en/). O objetivo do Stellar é criar um ambiente de desenvolvimento de usabilidade fácil, reutilizável e capaz de escalar, tornando o Stellar uma excelente solução tanto para pequenos, como para projetos de dimensões empresariais.
 
 É usado um sistema baseados em ações. Isto quer dizer que todas as funcionalidades são representadas como ações, pode ler mais sobre ações na [secção](actions.html) dedicada às mesmas.
 
@@ -19,7 +19,7 @@ Uma instância de execução é capaz de responder tanto a pedidos dos clientes,
 
 ## Arquitetura
 
-O _core_ do Stellar é composto por um _Engine_, um conjunto de _Satellites_ e por três servidores. O _Engine_ é resposavel por carregar os módulos e fornecer mecanismos que permitam aos _Satellites_ expor as suas APIs para o resto da plataforma, para que a sua lógica possa ser usada por outros componentes. Os módulos são a forma de agrupar as funcionalidades de uma determinada área a fim de serem mais facilmente portadas para outros projetos ou partilhar com a comunidade _Open Soure_.
+O _core_ do Stellar é composto por um _Engine_, um conjunto de _Satellites_ e por três servidores. O _Engine_ é resposavel por carregar os módulos e fornecer mecanismos que permitam aos _Satellites_ expor as suas APIs para o resto da plataforma, isto, para que a sua lógica possa ser usada por outros componentes. Os módulos são a forma de agrupar as funcionalidades de uma determinada área a fim de serem mais facilmente portadas para outros projetos ou para partilhar com a comunidade _Open Soure_.
 
 ![Arquitetura do Core](/images/core_arch.png)
 
@@ -27,7 +27,7 @@ O _core_ do Stellar é composto por um _Engine_, um conjunto de _Satellites_ e p
 
 Tanto a [documentação](https://github.com/StellarFw/pt.stellar-framework.com) deste _website_ como o código do [Stellar](https://github.com/StellarFw/stellar) estão disponíveis no GitHub. Pode submeter _pull requests_ para o _branch_ `dev`, mas antes, por favor, lei-a atentamente o [guia de contribuição](https://github.com/StellarFw/stellar/blob/dev/CONTRIBUTING.md). Toda a ajuda é bem vinda! 😉
 
-Também pode ajudar ao usar o gestor de [_issues_](https://github.com/StellarFw/stellar/issues) para reportar _bugs_, fazer sugestões ou pedidos de funcionalidades.
+Também pode ajudar ao usar o gestor de [_issues_](https://github.com/StellarFw/stellar/issues) para reportar _bugs_, fazer sugestões ou mesmo pedidos de funcionalidades.
 
 ## Estrutura de uma Aplicação
 
@@ -63,15 +63,15 @@ Abaixo está representada a estrutura de pastas típica de um projeto em Stellar
     └── (ficheiros temporários)
 ```
 
-- **`config`**: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também as dos módulos. Assim sendo, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização, sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outras projetos.
+- **`config`**: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também as dos módulos. Assim, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização, sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outros projetos.
 
 - **`manifest.json`**: Este ficheiro contêm a descrição do projeto, composto por três propriedades: nome do projeto, versão e módulos ativos.
 
 - **`modules`**: Contêm todos os módulos que compõem a aplicação, que podem estar ou não a ser usados, conforme a propriedade `modules` do ficheiro `manifest.json`.
 
-  - **`actions`**: Contêm os ficheiros com a implementação das ações do módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.
+  - **`actions`**: Contêm os ficheiros com a implementação das ações dos módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.
 
-  - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, sendo assim sobrepõem-se as do _core_ e a configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
+  - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, sendo assim sobrepõem-se as do _core_ e às configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
 
   - **`listeners`**: Contém os _listeners_ para os eventos que podem ocorrer ao longo do tempo de execução.
 
@@ -89,7 +89,7 @@ Abaixo está representada a estrutura de pastas típica de um projeto em Stellar
 
 ### manifest.json
 
-O ficheiro **manifest.json** permite descrever o projeto, através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo com o formato deste ficheiro:
+O ficheiro **manifest.json** permite descrever o projeto através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo com o formato deste ficheiro:
 
 ```json
 {
