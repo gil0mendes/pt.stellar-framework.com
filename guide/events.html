@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>Eventos - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link current">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>Eventos</h1>
+  <h2 id="O-que-e"><a href="#O-que-e" class="headerlink" title="O que é?"></a>O que é?</h2><p>O Stellar possui um sistema de eventos que permite subscrever e ficar à escuta por eventos na aplicação. Isto é util para manipular dados durante a execução ou estender funcionalidades adicionando novos comportamentos à lógica existente. Os <em>listeners</em> devem estar armazenados na pasta <code>listeners</code> dos módulos.</p>
+<h2 id="Gerar-Listeners"><a href="#Gerar-Listeners" class="headerlink" title="Gerar Listeners"></a>Gerar Listeners</h2><p>Claro que, criar manualmente os ficheiros para cada <em>listener</em> é pesado. Em vez, os desenvolvedores podem recorrer à ferramenta de linha de comandos para o fazer de forma automática:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">stellar generateEvent &lt;nomeDoEvento&gt; --module=&lt;nomeDoModulo&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Definir-um-Listener"><a href="#Definir-um-Listener" class="headerlink" title="Definir um Listener"></a>Definir um Listener</h2><p>O código abaixo mostra a implementação de um <em>listener</em>, neste exemplo o <em>listener</em> irá responder ao evento <code>social.newComment</code> e irá adicionar uma nova tarefa ao sistema para proceder ao envio de um email a cada comentário feito na aplicação.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Ficheiro: social/listeners/comments.js</span></span><br><span class="line"><span class="meta"></span><br><span class="line">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.default = [&#123;</span><br><span class="line">  event: <span class="string">'social.newComment'</span>,</span><br><span class="line">  run: (api, params, next) &#123;</span><br><span class="line">    <span class="comment">// envia um novo email notificando o novo comentário</span></span><br><span class="line">    api.tasks.enqueue(<span class="string">'sendNewCommentEmail'</span>, params)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// cria uma nova propriedade chamada `emailSent` e define-a para `true`</span></span><br><span class="line">    params.emailSent = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// next(error &lt;Error&gt;)</span></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<h2 id="Disparar-Eventos"><a href="#Disparar-Eventos" class="headerlink" title="Disparar Eventos"></a>Disparar Eventos</h2><p>O código abaixo mostra a forma de como um evento pode ser disparado. Neste caso o desenvolvedor quer disparar o evento <code>social.newComment</code> e dar aos <em>listeners</em> uma variavel com os dados do novo comentário:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.events.fire(<span class="string">'social.newComment'</span>, newComment, response =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa com os dados modificados...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Registar-um-Listener-Manualmente"><a href="#Registar-um-Listener-Manualmente" class="headerlink" title="Registar um Listener Manualmente"></a>Registar um Listener Manualmente</h2><p>Para registar um <em>listener</em> manualmente o desenvolvedor pode usar a seguinte API:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.events.listener(<span class="string">'blog.newUser'</span>, (api, params, next) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// termina a execução do listener</span></span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/websocket.html">WebSocket</a></span>
+        
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/events.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

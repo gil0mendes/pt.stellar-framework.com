@@ -116,6 +116,18 @@
           <a href="/guide/logging.html" class="sidebar-link current">Logging</a>
         </li>
       
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -124,9 +136,9 @@
 
 <div class="content guide with-sidebar">
   <h1>Logging</h1>
-  <p>O Stellar faz uso do fantástico pacote <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> para a gestão de <em>logs</em>. Usando o Winston é possível melhorar e tornar o sistema de <em>logs</em> extremamente customizável, devido à sua elevada flexibilidade.</p>
-<h2 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h2><p>No ficheiro de configuração <code>config/logger.js</code> é possível definir os transportes que pretende usar no projeto. Se não for especificado nenhum provider, por defeito, os <em>logs</em> serão impressos para o stdout. Na documentação do <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> é possível ver quais os providers existentes, alguns deles são: consola, ficheiros, S3 e Riak.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> logger &#123;</span><br><span class="line">  transports: [</span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</span><br><span class="line">        colorize: <span class="literal">true</span>,</span><br><span class="line">        level: <span class="string">'debug'</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</span><br><span class="line">        filename: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</span><br><span class="line">        level: <span class="string">'info'</span>,</span><br><span class="line">        timestamp: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <p>O Stellar faz uso do fantástico pacote <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> para a gestão de <em>logs</em>. Usando o Winston é possível melhorar e tornar o sistema de <em>logs</em> extremamente personalizável, devido à sua elevada flexibilidade.</p>
+<h2 id="Providers"><a href="#Providers" class="headerlink" title="Providers"></a>Providers</h2><p>No ficheiro de configuração <code>config/logger.js</code> é possível definir os transportes que pretende usar no projeto. Se não for especificado nenhum <em>provider</em>, por defeito, os <em>logs</em> serão impressos para o <code>stdout</code>. Na documentação do <a href="https://www.npmjs.com/package/winston" target="_blank" rel="external">Winston</a> é possível ver quais os <em>providers</em> existentes, alguns deles são: consola, ficheiros, S3 e Riak.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.logger = &#123;</span><br><span class="line">  transports: [</span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.Console)(&#123;</span><br><span class="line">        colorize: <span class="literal">true</span>,</span><br><span class="line">        level: <span class="string">'debug'</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    api =&gt; &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> (winston.transports.File)(&#123;</span><br><span class="line">        filename: <span class="string">`./log/<span class="subst">$&#123;api.pids.title&#125;</span>.log`</span>,</span><br><span class="line">        level: <span class="string">'info'</span>,</span><br><span class="line">        timestamp: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Niveis"><a href="#Niveis" class="headerlink" title="Níveis"></a>Níveis</h2><p>Existem 8 níveis de <em>logging</em>, estes níveis podem ser usados de forma individual por cada <em>transport</em>. O níveis são:</p>
 <ul>
 <li>0 = debug</li>
@@ -139,12 +151,12 @@
 <li>7 = emerg</li>
 </ul>
 <blockquote>
-<p>É possível customizar, os níveis e as cores no ficheiro <code>config/logger.js</code>.</p>
+<p>É possível personalizar, os níveis e as cores no ficheiro <code>config/logger.js</code>.</p>
 </blockquote>
-<p>Por exemplo, se o nível do <em>log</em> for definido para “notice”, mensagens criticas serão visíveis, mas mensagens informativas e de <em>debug</em> não.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.log(‘hello!’) <span class="comment">// por defeito é uma mensagem com nível informativo</span></span><br><span class="line">api.log(‘debug message’, ‘debug’) <span class="comment">// não irá aparecer a não ser que o NODE_ENV está definido para debug</span></span><br><span class="line">api.log(‘Bad things append :(’, ‘emerg’) <span class="comment">// será mostrado em todos os níveis</span></span><br></pre></td></tr></table></figure>
-<h2 id="Metodos"><a href="#Metodos" class="headerlink" title="Métodos"></a>Métodos</h2><p>Os métodos <code>api.logger.log</code> e <code>api.logger[severity]</code> estão acessíveis através do objeto <code>api</code> e permitem modificar a instancia do Winston diretamente. O método <code>api.log</code> passa a mensagem para todos os <em>transports</em>. Abaixo estão alguns exemplos da utilização do método <code>api.log(message, severity, metadata)</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// este é o caso de uso mais simples, o severity por defeito é igual a ‘info’</span></span><br><span class="line">api.log(‘hello’)</span><br><span class="line"></span><br><span class="line"><span class="comment">// o segundo argumento é a severidade da mensagem</span></span><br><span class="line">api.log(‘Red Alert xD’, ‘emerg’)</span><br><span class="line"></span><br><span class="line"><span class="comment">// por ultimo, temos um grau de severidade personalizado e metadados</span></span><br><span class="line">api.log(‘Red Alert xD’, ‘emerg’, &#123; error: <span class="keyword">new</span> <span class="built_in">Error</span>(’Some additional information!’) &#125;)</span><br></pre></td></tr></table></figure>
+<p>Por exemplo, se o nível do <em>log</em> for definido para <em>notice</em>, mensagens criticas serão visíveis, mas mensagens informativas e de <em>debug</em> não.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// por defeito é uma mensagem com nível informativo</span></span><br><span class="line">api.log(<span class="string">'hello!'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// não irá aparecer a não ser que o NODE_ENV está definido para debug</span></span><br><span class="line">api.log(<span class="string">'debug message'</span>, <span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// será mostrado em todos os níveis</span></span><br><span class="line">api.log(<span class="string">'Bad things append :('</span>, <span class="string">'emerg'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Metodos"><a href="#Metodos" class="headerlink" title="Métodos"></a>Métodos</h2><p>Os métodos <code>api.logger.log</code> e <code>api.logger[severity]</code> estão acessíveis através do objeto <code>api</code> e permitem modificar a instância do Winston diretamente. O método <code>api.log</code> passa a mensagem para todos os <em>transports</em>. Abaixo estão alguns exemplos da utilização do método <code>api.log(message, severity, metadata)</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// este é o caso de uso mais simples, o severity por defeito é igual a 'info'</span></span><br><span class="line">api.log(<span class="string">'hello'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// o segundo argumento é a severidade da mensagem</span></span><br><span class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// por ultimo, temos um grau de severidade personalizado e metadados</span></span><br><span class="line">api.log(<span class="string">'Red Alert xD'</span>, <span class="string">'emerg'</span>, &#123; error: <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Some additional information!'</span>) &#125;)</span><br></pre></td></tr></table></figure>
 
 
   
@@ -152,6 +164,8 @@
         
           <span>← <a href="/guide/file_system.html">Sistema de Ficheiros</a></span>
         
+        
+          <span style="float:right"><a href="/guide/websocket.html">WebSocket</a> →</span>
         
       </div>
     

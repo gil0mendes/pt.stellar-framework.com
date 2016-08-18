@@ -116,6 +116,18 @@
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -124,19 +136,19 @@
 
 <div class="content guide with-sidebar">
   <h1>Modo de Desenvolvimento</h1>
-  <h2 id="O-que-e"><a href="#O-que-e" class="headerlink" title="O que é?"></a>O que é?</h2><p>O modo de desenvolvimento, tal como o próprio nome diz, é um modo especial para facilitar o desenvolvimento dos módulos e aplicações no Stellar. Ao alterar os ficheiros de rotas, tarefas, ações e modelos, o servidor consegue substituir essa lógica em memória assim que for detetada uma alteração no sistema de ficheiros. Assim tão terá que estar constantemente a parar e a reexecutar o servidor a cada alteração que faça. Alterações mais severas, como configurações e <a href="./satellites.html">Satellites</a> fazem com que o servidor reinicie por completo, mas tudo é feito de forma automática.</p>
+  <h2 id="O-que-e"><a href="#O-que-e" class="headerlink" title="O que é?"></a>O que é?</h2><p>O modo de desenvolvimento, tal como o próprio nome diz, é um modo especial para facilitar o desenvolvimento dos módulos e aplicações no Stellar. Ao alterar os ficheiros de rotas, tarefas, ações e modelos, o servidor consegue substituir essa lógica em memória logo que seja detetada uma alteração no sistema de ficheiros. Deste modo não terá que estar constantemente a parar e a reexecutar o servidor a cada alteração feita. Alterações mais severas, como configurações e <a href="satellites.html">Satellites</a> fazem com que o servidor reinicie por completo, tudo é feito de forma automática.</p>
 <p>Para ativar o modo de desenvolvimento basta criar um ficheiro (caso ainda não tenha um) <code>config/api.js</code> e definir a opção <code>developmentMode</code> para <code>true</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line"></span><br><span class="line">  general: api =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      developmentMode: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line">exports.default = &#123;</span><br><span class="line">  general: api =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      developmentMode: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Atenção: a propriedade <code>api.config.general.developmentMode</code> é diferente do <code>NODE_ENV</code>. O ambiente apenas informa o Stellar de qual configurações usar, por defeito é <em>development</em>, mas não tem nenhum efeito no <code>developmentMode</code>.</p>
 </blockquote>
-<h2 id="Efeitos"><a href="#Efeitos" class="headerlink" title="Efeitos"></a>Efeitos</h2><p>Quando o modo de desenvolvimento está ativo o Stellar vai ficar recarregar ações, tarefas, modelos, configurações e <a href="./satellites.html">Satellites</a> assim que eles forem modificados, tudo <em>on the fly</em>.</p>
+<h2 id="Efeitos"><a href="#Efeitos" class="headerlink" title="Efeitos"></a>Efeitos</h2><p>Quando o modo de desenvolvimento está ativo o Stellar vai recarregar ações, tarefas, modelos, configurações e <a href="satellites.html">Satellites</a> assim que eles forem modificados, tudo <em>on the fly</em>.</p>
 <ul>
 <li>uma vez que o Stellar faz uso do método <code>fs.watchFile()</code> o recarregar pode não funcionar em todos os sistemas operativos / sistemas de ficheiros;</li>
-<li>novos ficheiros não serão carregados, apenas os ficheiros com que a instância foi iniciada é que são monitorizados;</li>
-<li>apagar um ficheiro pode causar num <em>crash</em> da aplicação, nós não tentamos recarregar ficheiros apagados;</li>
-<li>se o valor da frequência em que uma tarefas periodica é executada (<code>task.frequency</code>) for alterada, será usado o valor antigo até a tarefa for “disparada” novamente;</li>
-<li>ao alterar configurações e ou <a href="./satellites.html">Satellites</a>, será feita um <em>reboot</em> total ao servidor e não apenas dos ficheiros alterados.</li>
+<li>novos ficheiros não serão carregados, apenas os ficheiros com que a instância foi iniciada serão monitorizados;</li>
+<li>apagar um ficheiro pode causar num <em>crash</em> da aplicação, o Stellar não tenta recarregar ficheiros apagados;</li>
+<li>se o valor da frequência em que uma tarefa periódica é executada (<code>task.frequency</code>) for alterado, será usado o valor antigo até que essa tarefa seja “disparada” de novo;</li>
+<li>ao alterar configurações e ou <a href="satellites.html">Satellites</a>, será feito um <em>reboot</em> total ao servidor e não apenas dos ficheiros alterados.</li>
 </ul>
 
 

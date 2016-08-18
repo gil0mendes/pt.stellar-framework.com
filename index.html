@@ -56,10 +56,11 @@
       <h1>Stellar</h1>
     </div>
 
-    <p class="dec">Uma framework web baseada em ações</p>
+    <p class="desc">Uma framework web baseada em ações</p>
 
     <p class="buttons">
-      <a href="/guide/installation.html" class="button">Instalar v1.0.0</a>
+      <a href="/guide/installation.html" class="small-button">Instalar v1.0.1</a>
+      <a href="/guide/index.html" class="small-button">Começar</a>
     </p>
 
     <ul id="social">
@@ -72,16 +73,35 @@
     </ul>
   </div>
 
-  <div class="down">
-    <img src="/images/down.png" />
-  </div>
+  <div class="down"><img src="/images/down.png" /></div>
 </div>
 
 <div id="example">
-  <h2>Um Exemplo Rápido</h2>
-  <div class="block">
-
+  <h2>Exemplo Rápido</h2>
+  
+  <div class="block" style="margin-right: 5px;">
+    <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># criar um novo projeto</span><br><span class="line">$ stellar init</span><br></pre></td></tr></tbody></table></figure>
   </div>
+
+  <div class="block" style="margin-right: 5px; margin-left: 5px">
+    <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># criar um novo modelo</span><br><span class="line">$ stellar makeModel post --module=private --crud</span><br></pre></td></tr></tbody></table></figure>
+  </div>
+
+  <div class="block" style="margin-left: 5px">
+    <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># inicia um cluster</span><br><span class="line">$ stellar startCluster</span><br></pre></td></tr></tbody></table></figure>
+  </div>
+</div>
+
+<div id="why">
+  <h2>Deve experimentar se gosta de:</h2>
+
+  <ul>
+    <li>Foco na lógica do negócio</li>
+    <li>APIs que fazem sentido</li>
+    <li>Boa divisão das funcionalidades</li>
+    <li>Máxima reutilização</li>
+    <li>Rápida prototipagem</li>
+  </ul>
 </div>
 
 <div id="footer">

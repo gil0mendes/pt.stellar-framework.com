@@ -116,6 +116,18 @@
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -124,28 +136,28 @@
 
 <div class="content guide with-sidebar">
   <h1>Cluster</h1>
-  <h2 id="Objetivo"><a href="#Objetivo" class="headerlink" title="Objetivo"></a>Objetivo</h2><p>O Stellar pode tanto correr num servidor único ou como parte de um <em>cluster</em>. O objetivo do <em>cluster</em> é criar um conjunto de servidores que partilham o mesmo estado entre eles de forma a responderem a um maior numero de pedidos dos clientes e executar tarefas. Com este mecanismo, é possível adicionar e remover nós do <em>cluster</em> sem haver perda de dados ou tarefas duplicadas. Também é possível executar múltiplas instancias do Stellar na mesma maquina usando o comando <code>stellar startCluster</code>.</p>
-<p>O nome das instâncias do <em>cluster</em> sequenciais, começando em stellar-worker-1. O nome da instância pode ser obtido chamando o <code>api.id</code>.</p>
-<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p>Uma vez que o Stellar usa um <em>backend</em> em Redis para reter informação das tarefas a serem executadas e objetos em <em>cache</em>, o <em>cluster</em> tira partido desse sistema para partilhar a mesma informação através de todos os nós. Isto faz com que não sejam necessárias quaisquer alterações no código para aplicação para por fazer <em>deploy</em> num <em>cluster</em>.</p>
+  <h2 id="Objetivo"><a href="#Objetivo" class="headerlink" title="Objetivo"></a>Objetivo</h2><p>O Stellar pode ser executado num servidor único ou como parte de um <em>cluster</em>. O objetivo do <em>cluster</em> é criar um conjunto de servidores que partilham o mesmo estado entre eles de forma a responderem a um maior numero de pedidos dos clientes e executar tarefas. Com este mecanismo, é possível adicionar e remover nós do <em>cluster</em> sem haver perda de dados ou tarefas duplicadas. Também é possível executar múltiplas instâncias do Stellar na mesma máquina usando o comando <code>stellar startCluster</code>.</p>
+<p>O nome das instâncias do <em>cluster</em> sequenciais, começando em <code>stellar-worker-1</code>. O nome da instância pode ser obtido chamando o <code>api.id</code>.</p>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><p>Uma vez que o Stellar usa um <em>backend</em> em Redis para reter informação das tarefas a serem executadas e objetos em <em>cache</em>, o <em>cluster</em> tira partido desse sistema para partilhar a mesma informação através de todos os nós. Isto faz com que não seja necessário qualquer alteração no código para aplicação poder fazer <em>deploy</em> num <em>cluster</em>.</p>
 <blockquote>
-<p><strong>Atenção:</strong> Outros clientes/servidores podem aceder à <em>cache</em> em simultâneo. É necessário ter em atenção como se desenvolve as ações para não haver conflitos. Pode ler mais sobre <em>cache</em> <a href="./cache.html">aqui</a>.</p>
+<p>Atenção: Outros clientes/servidores podem aceder à <em>cache</em> em simultâneo. É necessário ter em atenção como se desenvolve as ações para não haver conflitos. Pode ler mais sobre <a href="cache.html"><em>cache</em> aqui</a>.</p>
 </blockquote>
-<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>O Stellar implementa um sistema de <em>Remote Procedure Calls</em> (RPC), que permite executar um determinado comando em todos os nós do <em>cluster</em> ou num nós especifico através do objetivo <em>connection</em>. Para fazer uso deste sistema apenas tem que usar o método <code>api.redis.doCluster(método, argumentos, IdDaConexão, callback)</code>, ao especificar um callback, irá receber a primeira resposta do <em>cluster</em> (ou um erro de <em>timeout</em>).</p>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>O Stellar implementa um sistema de <em>Remote Procedure Calls</em> (RPC), que permite executar um determinado comando em todos os nós do <em>cluster</em> ou num nó especifico através do objeto <em>connection</em>. Para fazer uso deste sistema apenas tem que usar o método <code>api.redis.doCluster(metodo, argumentos, Id_da_conexao, callback)</code>, ao especificar um <em>callback</em>, irá receber a primeira resposta do <em>cluster</em> (ou um erro de <em>timeout</em>).</p>
 <h3 id="Exemplo"><a href="#Exemplo" class="headerlink" title="Exemplo"></a>Exemplo</h3><p>O exemplo abaixo, faz com que todos os nós imprimam os seus ID para o ficheiro de logs.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.redis.doCluster(‘api.log’, [<span class="string">`olá a partir do nó <span class="subst">$&#123;api.id&#125;</span>`</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.redis.doCluster(<span class="string">'api.log'</span>, [<span class="string">`olá a partir do nó <span class="subst">$&#123;api.id&#125;</span>`</span>])</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>Atenção:</strong> Este mecanismo permite executar qualquer método da API, incluindo a função de <code>stop()</code>.</p>
+<p>Atenção: Este mecanismo permite executar qualquer método da API, incluindo a função de <code>stop()</code>.</p>
 </blockquote>
 <h2 id="Redis-Pub-Sub"><a href="#Redis-Pub-Sub" class="headerlink" title="Redis Pub/Sub"></a>Redis Pub/Sub</h2><p>Também está disponível um mecanismo de pub/sub, através do Redis, que permite comunicações entre os nós do <em>cluster</em>. É possível enviar mensagens em <em>broadcast</em> e receber mensagens de outros nós do <em>cluster</em> usando o método: <code>api.redis.publish(payload)</code>. O <em>payload</em> deve conter as seguintes propriedades:</p>
 <ul>
-<li><code>messageType</code>: Nome to tipo de <em>payload</em>;</li>
-<li><code>serverId</code>: Id do servidor, <code>api.id</code>;</li>
-<li><code>serverToken</code>: <code>api.config.general.serverToken</code></li>
+<li><strong><code>messageType</code></strong>: Nome to tipo de <em>payload</em>;</li>
+<li><strong><code>serverId</code></strong>: Id do servidor, <code>api.id</code>;</li>
+<li><strong><code>serverToken</code></strong>: <code>api.config.general.serverToken</code></li>
 </ul>
 <h3 id="Exemplo-1"><a href="#Exemplo-1" class="headerlink" title="Exemplo"></a>Exemplo</h3><p>O exemplo a seguir mostra como é possível subscrever a um determinado tipo de mensagem:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.redis.subscriptionHandlers[‘tipoDaMensagem’] = (message) =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Para enviar uma mensagem deve ser usado um código parecido com a seguir:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> payload = &#123;</span><br><span class="line">  messageType: ‘tipoDaMensagem’,</span><br><span class="line">  serverId: api.id,</span><br><span class="line">  serverToken: api.config.general.serverToken,</span><br><span class="line">  message: ‘Conteú<span class="keyword">do</span> da mensagem!’</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">api.redis.publish(payload)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">api.redis.subscriptionHandlers[<span class="string">'tipoDaMensagem'</span>] = menssage =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Para enviar uma mensagem deve ser usado um código parecido com o seguinte:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> payload = &#123;</span><br><span class="line">  messageType: <span class="string">'tipoDaMensagem'</span>,</span><br><span class="line">  serverId: api.id,</span><br><span class="line">  serverToken: api.config.general.serverToken,</span><br><span class="line">  message: <span class="string">'Conteúdo da mensagem!'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">api.redis.publish(payload)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>O <code>api.config.general.serverToken</code> permite autenticar a mensagem no <em>cluster</em>.</p>
 </blockquote>

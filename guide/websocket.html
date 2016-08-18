@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>WebSocket - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link current">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>WebSocket</h1>
+  <h2 id="Visao-Geral"><a href="#Visao-Geral" class="headerlink" title="Visão Geral"></a>Visão Geral</h2><p>O Stellar usa o <a href="http://primus.io" target="_blank" rel="external">Primus</a> para trabalhar com <em>web sockets</em>. O Primus cria uma camada de abstração sobre o <em>engine</em> do websocket, ele suporta: <code>ws</code>, <code>engine.io</code>, <code>socket.io</code>, entre outros. O <em>web socket</em> encontra-se ligado ao servidor <em>web</em>, seja ele HTTP ou HTTPS.</p>
+<p>Quando o Stellar inicia é gerado um <em>script</em> com algumas funções úteis para fazer a ligação entre o cliente e o servidor. Esse <em>script</em> pode ser obtido através da chamada do URL <code>http(s)://stellar_domain.com/stellar-client</code>.</p>
+<h2 id="Metodos"><a href="#Metodos" class="headerlink" title="Métodos"></a>Métodos</h2><p>Abaixo estão expostos todos os métodos disponibilizados pelo cliente para que possa interagir com o servidor:</p>
+<h3 id="Abrir-ligacao"><a href="#Abrir-ligacao" class="headerlink" title="Abrir ligação"></a>Abrir ligação</h3><p>O método <code>client.connect(callback)</code> permite abrir uma ligação com o servidor:</p>
+<ul>
+<li><strong><code>callback(error, detailsView)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>error</code></strong>: objeto com o erro que ocorrido durante a chamada ao servidor, caso exista</li>
+<li><strong><code>detailsView</code></strong>: o mesmo que o método <code>detailsView</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Chamar-uma-Acao"><a href="#Chamar-uma-Acao" class="headerlink" title="Chamar uma Ação"></a>Chamar uma Ação</h3><p>O método <code>client.action(action, params, callback)</code> permite chamar uma ação:</p>
+<ul>
+<li><strong><code>action</code></strong>: nome da ação a ser chamada, por exemplo: “auth.signin”</li>
+<li><strong><code>params</code></strong>: objeto com os parâmetros anexos à ação</li>
+<li><strong><code>callback(response)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>response</code></strong>: contem a resposta do servidor.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>NOTA: Quando não existe uma ligação aberta através de websocket, seja feito uma <em>fallback</em> para HTTP.</p>
+</blockquote>
+<h3 id="Enviar-Mensagem"><a href="#Enviar-Mensagem" class="headerlink" title="Enviar Mensagem"></a>Enviar Mensagem</h3><p>O método <code>client.say(room, message, callback)</code> permite enviar uma mensagem para uma sala de <em>chat</em>:</p>
+<ul>
+<li><strong><code>room</code></strong>: sala para onde a mensagem será enviada</li>
+<li><strong><code>message</code></strong>: mensagem a ser enviada</li>
+<li><strong><code>callback(error)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>error</code></strong>: contem a informação do erro, caso tenha ocorrido algum.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>NOTA: Tem que usar o método <code>roomAdd</code> antes de poder interagir com um sala.</p>
+</blockquote>
+<h3 id="Detalhes"><a href="#Detalhes" class="headerlink" title="Detalhes"></a>Detalhes</h3><p>O método <code>client.detailsView(callback)</code> permite obter detalhes sobre a conexão do cliente:</p>
+<ul>
+<li><strong><code>callback(error, response)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>error</code></strong>: pode conter uma instância de <code>Error</code></li>
+<li><strong><code>response</code></strong>: contem um objeto com os detalhes da conexão</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>NOTA: A primeira resposta do <code>detailsView</code> é guardada para ser usado no futuro.</p>
+</blockquote>
+<h3 id="Estado-de-uma-Sala"><a href="#Estado-de-uma-Sala" class="headerlink" title="Estado de uma Sala"></a>Estado de uma Sala</h3><p>O método <code>client.roomView(room, callback)</code> permite obter alguns meta-dados da sala pedida.</p>
+<ul>
+<li><strong><code>room</code></strong>: nome da sala a obter os meta-dados</li>
+<li><strong><code>callback(response, error)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>response</code></strong>: objeto com os meta-dados da sala de <em>chat</em> pedida</li>
+<li><strong><code>error</code></strong>: contem uma instância de <code>Error</code>, no caso de ter ocorrido um</li>
+</ul>
+</li>
+</ul>
+<h3 id="Juntar-se-a-uma-Sala"><a href="#Juntar-se-a-uma-Sala" class="headerlink" title="Juntar-se a uma Sala"></a>Juntar-se a uma Sala</h3><p>O método <code>client.roomAdd(room, callback)</code> permite juntar o cliente a uma sala de <em>chat</em>:</p>
+<ul>
+<li><strong><code>room</code></strong>: nome da sala onde juntar o cliente</li>
+<li><strong><code>callback(error)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>error</code></strong>: pode conter uma instância de <code>Error</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Sair-de-uma-Sala-de-Chat"><a href="#Sair-de-uma-Sala-de-Chat" class="headerlink" title="Sair de uma Sala de Chat"></a>Sair de uma Sala de Chat</h3><p>O método <code>client.roomLeave(room, callback)</code> permite um cliente abandonar uma sala de <em>chat</em> de que faz parte:</p>
+<ul>
+<li><strong><code>room</code></strong>: sala de onde o cliente deve ser removido</li>
+<li><strong><code>callback(error)</code></strong>: função de <em>callback</em><ul>
+<li><strong><code>error</code></strong>: pode ter uma instância de <code>Error</code>, caso aconteça um</li>
+</ul>
+</li>
+</ul>
+<h3 id="Pede-um-ficheiro"><a href="#Pede-um-ficheiro" class="headerlink" title="Pede um ficheiro"></a>Pede um ficheiro</h3><p>O método <code>client.file(file, callback)</code> permite um cliente pedir um ficheiro estático ao servidor.</p>
+<ul>
+<li><strong><code>file</code></strong>: caminho para o ficheiro a ser pedido</li>
+<li><strong><code>callback(response, error)</code></strong>: função de <em>callback</em><ul>
+<li><strong>response</strong>: objeto com o ficheiro pedido</li>
+</ul>
+</li>
+</ul>
+<p>A resposta assemelha-se a estrutura abaixo:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "content": "Conteúdo do ficheiro",</span><br><span class="line">  "context": "response",</span><br><span class="line">  "error": null,</span><br><span class="line">  "lenght" 20,</span><br><span class="line">  "messageCount" : 3,</span><br><span class="line">  "mime": "text/txt"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Desconectar-o-Cliente"><a href="#Desconectar-o-Cliente" class="headerlink" title="Desconectar o Cliente"></a>Desconectar o Cliente</h3><p>O método <code>client.disconnect()</code> permite desconectar o cliente do servidor.</p>
+<h2 id="Eventos"><a href="#Eventos" class="headerlink" title="Eventos"></a>Eventos</h2><p>A lista abaixo mostra os eventos disponibilizados pelo cliente.</p>
+<h3 id="Connected"><a href="#Connected" class="headerlink" title="Connected"></a>Connected</h3><p>O evento <code>connected</code> acontece quando o cliente se conecta ao servidor.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'connected'</span>, () =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Disconnected"><a href="#Disconnected" class="headerlink" title="Disconnected"></a>Disconnected</h3><p>O evento <code>disconnected</code> acontece quando o cliente de desliga do servidor.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'disconnected'</span>, () =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h3><p>O evento <code>error</code> acontece quando ocorre um erro fora da execução de um evento ou <em>verb</em>.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'error'</span>, error =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Reconnect"><a href="#Reconnect" class="headerlink" title="Reconnect"></a>Reconnect</h3><p>O evento <code>reconnect</code> acontece quando a ligação entre o servidor e o cliente é quebrada temporariamente.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'reconnect'</span>, () =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Nota: os detalhes da conexão podem-se ter alterado</p>
+</blockquote>
+<h3 id="Reconnecting"><a href="#Reconnecting" class="headerlink" title="Reconnecting"></a>Reconnecting</h3><p>O evento <code>reconnecting</code> acontece quando o cliente se tenta voltar a ligar ao servidor.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'reconnecting'</span>, () =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>O evento <code>message</code> acontece quando o cliente recebe uma nova mensagem.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'message'</span>, message =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Atenção: este evento acontece sempre que o cliente recebe uma nova mensagem, é um evento muito “barulhento”</p>
+</blockquote>
+<h3 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h3><p>O evento <code>alert</code> acontece quando o cliente recebe uma mensagem do servidor com o contexto <code>alert</code>.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'alert'</span>, message =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>O evento <code>api</code> acontece quando o cliente recebe uma mensagem com um contexto desconhecido.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'api'</span>, message =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Welcome"><a href="#Welcome" class="headerlink" title="Welcome"></a>Welcome</h3><p>O evento <code>welcome</code> acontece quando o servidor envia a mensagem de boas vindas quando o cliente se liga.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'welcome'</span>, message =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Say"><a href="#Say" class="headerlink" title="Say"></a>Say</h3><p>O evento <code>say</code> acontece quando o cliente recebe mensagens de outros clientes em todas as salas.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">client.on(<span class="string">'say'</span>, message =&gt; &#123; &#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Nota: A propriedade <code>message.room</code> permite saber a origem da mensagem</p>
+</blockquote>
+
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/logging.html">Logging</a></span>
+        
+        
+          <span style="float:right"><a href="/guide/events.html">Eventos</a> →</span>
+        
+          <span style="float:right"><a href="/guide/tcp.html">TCP</a> →</span>
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/websocket.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <title>TCP - Stellar</title>
+
+    <!-- charset -->
+    <meta charset="utf-8">
+
+    <!-- description -->
+    <meta name="description" content="Stellar is an action based web framework for creating Web APIs easily!">
+
+    <!-- viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Dosis:300,500' rel='stylesheet' type='text/css'>
+
+    <!-- page type -->
+    <script>
+      window.PAGE_TYPE = 'guide'
+    </script>
+
+    <!-- load page style -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- load Google Analytics -->
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77611901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  </head>
+  <body>
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+
+    
+      <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Stellar</span>
+    </a>
+    <ul id="nav">
+        <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+    </ul>
+</div>
+
+      <div id="main">
+        
+          
+  <div class="sidebar">
+  <ul class="main-menu">
+    <li><a href="/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+
+  </ul>
+  <div class="list">
+    <ul class="menu-root">
+      
+        <li>
+          <a href="/guide/index.html" class="sidebar-link">Visão Geral</a>
+        </li>
+      
+        <li>
+          <a href="/guide/installation.html" class="sidebar-link">Instalação</a>
+        </li>
+      
+        <li>
+          <a href="/guide/actions.html" class="sidebar-link">Ações</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tasks.html" class="sidebar-link">Tarefas</a>
+        </li>
+      
+        <li>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
+        </li>
+      
+        <li>
+          <a href="/guide/satellites.html" class="sidebar-link">Satélites</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cluster.html" class="sidebar-link">Cluster</a>
+        </li>
+      
+        <li>
+          <a href="/guide/cache.html" class="sidebar-link">Cache</a>
+        </li>
+      
+        <li>
+          <a href="/guide/chat.html" class="sidebar-link">Chat</a>
+        </li>
+      
+        <li>
+          <a href="/guide/development_mode.html" class="sidebar-link">Modo de Desenvolvimento</a>
+        </li>
+      
+        <li>
+          <a href="/guide/file_system.html" class="sidebar-link">Sistema de Ficheiros</a>
+        </li>
+      
+        <li>
+          <a href="/guide/logging.html" class="sidebar-link">Logging</a>
+        </li>
+      
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link current">TCP</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="content guide with-sidebar">
+  <h1>TCP</h1>
+  <h2 id="Visao-Geral"><a href="#Visao-Geral" class="headerlink" title="Visão Geral"></a>Visão Geral</h2><p>Também é possível interagir com o Stellar usando uma ligação persistente através de um <em>socket</em> TCP. Por defeito a porta usada é a <code>5000</code>, mas esta pode ser alterada através da propriedade <code>api.config.tcp.port</code>. Uma vez que se trata de uma ligação persistente a forma de funcionamento é semelhante à do <a href="websocket.html">WebSocket</a>, onde se utiliza <em>verbs</em> para passar comandos ao servidor. A lista abaixo mostra os <em>verbs</em> disponíveis:</p>
+<ul>
+<li><strong><code>quit</code></strong>: termina a ligação com o servidor (a sessão é destruída)</li>
+<li><strong><code>paramAdd</code></strong>: guarda uma variável que fica anexada à conexão<ul>
+<li>Exemplo: <code>addParam query=something</code></li>
+</ul>
+</li>
+<li><strong><code>paramView</code></strong>: devolve o valor de um parâmetro, caso este exista<ul>
+<li>Exemplo: <code>paramView query</code></li>
+</ul>
+</li>
+<li><strong><code>paramDelete</code></strong>: remove um parâmetro<ul>
+<li>Exemplo: <code>paramDelete query</code></li>
+</ul>
+</li>
+<li><strong><code>paramsView</code></strong>: devolve um objeto JSON com todos os parâmetros</li>
+<li><strong><code>paramsDelete</code></strong>: remove todos os parâmetros definidos</li>
+<li><strong><code>roomAdd</code></strong>: junta o cliente a uma sala de <em>chat</em></li>
+<li><strong><code>roomLeave</code></strong>: faz o cliente deixar sala de <em>chat</em></li>
+<li><strong><code>detailsView</code></strong>: obtém os detalhes da conexão do cliente, inclui o ID publico</li>
+<li><strong><code>say</code></strong>: envia uma mensagem para uma sala de <em>chat</em>.</li>
+</ul>
+<blockquote>
+<p>Nota: os parâmetros adicionados nas chamadas anteriores são fixados à conexão, isso quer dizer que é necessários remover os parâmetros antes de chamar novos <em>verbs</em>.</p>
+</blockquote>
+<p><img src="/images/telnet_tcp.png" alt="Telnet TCP"></p>
+<p>Uma das principais vantagens de utilizar uma ligação TCP é a possibilidade de poder chamar várias ações em simultâneo. O Stellar mantêm um contador das chamadas feitas, deste modo é possível manter a gestão das diferentes chamadas a decorrer.</p>
+<h2 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h2><p>O servidor TCP suporta ligações cifradas através de TLS, caso seja desejado. Para isso é necessário fazer algumas pequenas configurações no servidor:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">exports.default = &#123;</span><br><span class="line">  servers: &#123;</span><br><span class="line">    socket: api =&gt; &#123;</span><br><span class="line">      secure: <span class="literal">true</span>,</span><br><span class="line">      key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">      cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A ligação segura pode ser testada com o comando abaixo:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ openssl s_client -connect 127.0.0.1:5000</span><br></pre></td></tr></table></figure>
+<p>Ou então em outro processo node:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">let</span> tls = <span class="built_in">require</span>(<span class="string">'tls'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  key: fs.readFileSync(<span class="string">'certs/server-key.pem'</span>),</span><br><span class="line">  cert: fs.readFileSync(<span class="string">'certs/server-cert.pem'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> socket = tls.connect(<span class="number">5000</span>, options, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'cliente'</span>, socket.authorized ? <span class="string">'autorizado'</span> : <span class="string">'não autorizado'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">socket.setEnconding(<span class="string">'utf8'</span>)</span><br><span class="line">socket.on(<span class="string">'data'</span>, data =&gt; <span class="built_in">console</span>.log(data))</span><br></pre></td></tr></table></figure>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>A forma por defeito para executar ações no Stellar através de uma ligação TCP é usando os <em>verbs</em> disponíveis nas ligações persistentes. Contudo, é possível recorrer a JSON para escolher a ação a executar e enumerar os parâmetros a usar com essa ação. Por exemplo, <code>{&quot;action&quot;: &quot;actionName&quot;, &quot;params&quot;: {&quot;key&quot;: &quot;some_value&quot;}}</code>.</p>
+
+
+  
+      <div class="guide-links">
+        
+          <span>← <a href="/guide/websocket.html">WebSocket</a></span>
+        
+        
+      </div>
+    
+
+    <div class="footer">
+      Encontrou um erro ou quer contribuir para a documentação?
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/tcp.md" target="_blank">
+        Edite esta página no Github!
+      </a>
+    </div>
+</div>
+
+        
+      </div>
+
+      <script src="/js/smooth-scroll.min.js"></script>
+      <script src="/js/common.js"></script>
+    
+
+    <!-- enable FastClick  -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body)
+      }, false)
+    </script>
+  </body>
+</html>

@@ -116,6 +116,18 @@
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -124,12 +136,22 @@
 
 <div class="content guide with-sidebar">
   <h1>Sistema de Ficheiros</h1>
-  <blockquote>
-<p>TODO</p>
-<ul>
-<li>Sobre</li>
-<li>Enviar ficheiros atravéz das ações</li>
-</ul>
+  <h2 id="Visao-Geral"><a href="#Visao-Geral" class="headerlink" title="Visão Geral"></a>Visão Geral</h2><p>O Stellar está equipado com um sistema de ficheiros que permite aos clientes fazer pedidos de ficheiros estáticos.</p>
+<p>Se for pedido um diretório em vez de um ficheiro, o Stellar irá procurar pelo ficheiro definido em <code>api.config.general.directoryFileType</code> (que por defeito contem o valor <code>index.html</code>). Se falhar, por não encontrar o ficheiro será devolvido um erro.</p>
+<p>Pode-se usar o método <code>api.staticFile.get(connection, next)</code> nas ações para obter um ficheiro (em que <code>next(connection, error, fileStream, mime, length)</code>), o ficheiro a ser procurado será o definido em <code>connection.params.file</code>. Note-se que o fileStream é um <em>stream</em> que pode ser <em>pipe’d</em> para um cliente.</p>
+<blockquote>
+<p>NOTA: Em sistema operativos *NIX os <em>links</em> simbólicos para pastas e ficheiros são permitidos.</p>
+</blockquote>
+<h2 id="Clientes-Web"><a href="#Clientes-Web" class="headerlink" title="Clientes Web"></a>Clientes Web</h2><p>Nos clientes <em>web</em> os <em>headers</em> <code>Cache-Control</code> e <code>Expires</code> serão enviados, o valor destes encontra-se definido na configuração <code>api.config.general.flatFileCacheDuration</code>.</p>
+<p>Para o <em>header</em> <code>Content-Type</code> será usado o pacote <a href="https://npmjs.org/package/mime" target="_blank" rel="external">mime</a> para determinar o <em>mime</em> do ficheiro.</p>
+<p>Os clientes podem pedir um ficheiro através do parâmetro <code>file</code> ao executar a chamada de uma ação que faça uso do método <code>api.sendFile</code>, ou então podem fazer um pedido para o URL definido em <code>api.config.servers.web.urlPathForFiles</code> (por defeito é <code>/public</code>), o Stellar irá procurar pelo ficheiro pedido na pasta <code>/public</code>.</p>
+<p>Também é possível enviar o conteúdo de um ficheiro diretamente para um cliente, para isso basta usar o método <code>api.sendFile(connection, null, stream, &#39;text/html&#39;, length)</code>.</p>
+<h2 id="Outros-Clientes"><a href="#Outros-Clientes" class="headerlink" title="Outros Clientes"></a>Outros Clientes</h2><p>No caso de estar a usar uma ligação que não seja <em>web</em> deve usar o parâmetro <code>file</code> para fazer o pedido do ficheiro.</p>
+<p>O conteúdo do ficheiro é enviado em <code>raw</code>, que pode ser binário ou conter quebras de linha. Deve fazer o <em>parse</em> de acordo com o tipo de pedido que fez.</p>
+<h2 id="Enviar-Ficheiros-pelas-Acoes"><a href="#Enviar-Ficheiros-pelas-Acoes" class="headerlink" title="Enviar Ficheiros pelas Ações"></a>Enviar Ficheiros pelas Ações</h2><p>É possível enviar ficheiros através das ações usando o método <code>connection.sendFile()</code>. Abaixo encontra-se um exemplo de uma chamada de sucesso e outra de falha:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ficheiro encontrado</span></span><br><span class="line">action.connection.sendFile(<span class="string">'/path/to/file.mkv'</span>)</span><br><span class="line">action.toRender = <span class="literal">false</span></span><br><span class="line">next()</span><br><span class="line"></span><br><span class="line"><span class="comment">// mensagem de erro</span></span><br><span class="line">action.connection.rawConnection.responseHttpCode = <span class="number">404</span></span><br><span class="line">action.connection.sendFile(<span class="string">'404.html'</span>)</span><br><span class="line">action.toRender = <span class="literal">false</span></span><br><span class="line">next()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>NOTA: Deve definir a propriedade <code>action.toRender = false</code> uma vez que já foi enviada uma resposta para o cliente.</p>
 </blockquote>
 
 

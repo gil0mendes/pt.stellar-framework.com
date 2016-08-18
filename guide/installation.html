@@ -116,6 +116,18 @@
           <a href="/guide/logging.html" class="sidebar-link">Logging</a>
         </li>
       
+        <li>
+          <a href="/guide/websocket.html" class="sidebar-link">WebSocket</a>
+        </li>
+      
+        <li>
+          <a href="/guide/events.html" class="sidebar-link">Eventos</a>
+        </li>
+      
+        <li>
+          <a href="/guide/tcp.html" class="sidebar-link">TCP</a>
+        </li>
+      
     </ul>
   </div>
 </div>
@@ -124,12 +136,15 @@
 
 <div class="content guide with-sidebar">
   <h1>Instalação</h1>
-  <h3 id="Compatibilidade"><a href="#Compatibilidade" class="headerlink" title="Compatibilidade"></a>Compatibilidade</h3><p>O Stellar não suporta versões do Node.js inferiores à 6, uma vez que o Stellar faz uso do ECMAScript 6 e algumas funcionalidades não são suportadas por versões anteriores.</p>
-<h3 id="Release-Notes"><a href="#Release-Notes" class="headerlink" title="Release Notes"></a>Release Notes</h3><p>Os detalhes das <em>releases</em> para cada versão estão disponíveis no GitHub na aba <a href="https://github.com/gil0mendes/stellar/releases" target="_blank" rel="external">Releases</a> e no ficheiro de <a href="https://github.com/gil0mendes/stellar/blob/dev/CHANGELOG.md" target="_blank" rel="external">Changelog</a>.</p>
-<h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>Como não poderia deixar de ser o NPM é a forma escolhida para distribuir e instalar o Stellar. </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ultima release</span></span><br><span class="line">npm install stellar</span><br></pre></td></tr></table></figure>
-<h2 id="Versoes-de-Desenvolvimento"><a href="#Versoes-de-Desenvolvimento" class="headerlink" title="Versões de Desenvolvimento"></a>Versões de Desenvolvimento</h2><p>Para usar a versão de desenvolvimento do Stellar basta fazer o <em>clone</em> do repositório no GitHub. O <em>branch</em> “master” contem a ultima versão estável da framework, já a versão de desenvolvimento encontra-se no <em>branch</em> “dev”.</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> directorio/onde_o_stellar_sera_clonado</span><br><span class="line"></span><br><span class="line"><span class="comment"># faz o clone para a pasta atual</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/gil0mendes/stellar .</span><br><span class="line"></span><br><span class="line"><span class="comment"># instala das dependencias do Stellar</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># faz o transpile do código da pasta ‘/src’ para ES5</span></span><br><span class="line">npm run build </span><br><span class="line"></span><br><span class="line"><span class="comment"># adiciona a pasta ‘/bin’ ao path</span></span><br></pre></td></tr></table></figure>
+  <h3 id="Compatibilidade"><a href="#Compatibilidade" class="headerlink" title="Compatibilidade"></a>Compatibilidade</h3><p>O Stellar faz uso de todo o potencial do <a href="http://es6-features.org/" target="_blank" rel="external">ECMAScript 6</a>, por isso, versões do Node.js inferiores à 6 não são suportadas.</p>
+<h3 id="Release-Notes"><a href="#Release-Notes" class="headerlink" title="Release Notes"></a>Release Notes</h3><p>Os detalhes das <em>releases</em> para cada versão estão disponíveis no GitHub na aba <a href="https://github.com/StellarFw/stellar/releases" target="_blank" rel="external">Releases</a> e no ficheiro de <a href="https://github.com/StellarFw/stellar/blob/dev/CHANGELOG.md" target="_blank" rel="external">Changelog</a>.</p>
+<h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>O NPM é o método recomendado para a instalação do Stellar, uma vez que este é usado para satisfazer as dependências não só do <em>core</em> como dos módulos.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ultima versão estável</span></span><br><span class="line">$ npm install -g stellar-fw</span><br></pre></td></tr></table></figure>
+<h2 id="Versoes-de-Desenvolvimento"><a href="#Versoes-de-Desenvolvimento" class="headerlink" title="Versões de Desenvolvimento"></a>Versões de Desenvolvimento</h2><p>Para usar a versão de desenvolvimento do Stellar apenas tem que fazer o <em>clone</em> do repositório do GitHub. O <em>branch</em> <code>master</code> contem a ultima versão estável da framework, já a versão de desenvolvimento encontra-se no <em>branch</em> <code>dev</code>.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># faz o clone do repositório para a pasta stellar</span></span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/StellarFw/stellar stellar</span><br><span class="line"></span><br><span class="line"><span class="comment"># entra na pasta stellar e instala as dependências</span></span><br><span class="line">$ <span class="built_in">cd</span> stellar &amp;&amp; npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># faz o transpile do código da pasta ‘/src’ para ES5</span></span><br><span class="line">$ npm run build</span><br><span class="line"></span><br><span class="line"><span class="comment"># faz o link pelo npm para adicionar a ferramenta de linha de comandos ao </span></span><br><span class="line"><span class="comment"># sistema</span></span><br><span class="line">$ npm link</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Nota: O <code>npm link</code> pode necessitar de permissões de administrador.</p>
+</blockquote>
 
 
   
