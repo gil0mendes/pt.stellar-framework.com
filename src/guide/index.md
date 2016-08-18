@@ -63,15 +63,16 @@ Abaixo está representada a estrutura de pastas típica de um projeto Stellar. N
     └── (ficheiros temporários)
 ```
 
-- **`config`**: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também as dos módulos. Assim, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outros projetos.
+
+- **`config`**: Contêm configurações a nível do projeto. Estas configurações sobrepõem-se não só às configurações de sistema, mas também às dos módulos. Assim, mostra-se uma funcionalidade muito útil para configurar as aplicações aos requisitos do seu cenário de utilização sem que seja necessário alterar a lógica dos componentes já desenvolvidos, tornando-os assim reutilizáveis para outros projetos.
 
 - **`manifest.json`**: Este ficheiro contêm a descrição do projeto, composto por três propriedades: nome, versão e módulos ativos.
 
 - **`modules`**: Contêm todos os módulos que compõem a aplicação, que podem ser ou não usados, conforme a propriedade `modules` do ficheiro `manifest.json`.
 
   - **`actions`**: Contêm os ficheiros com a implementação das ações dos módulos. Estes ficheiros podem ser uma ação única ou então uma coleção de ações.
-
-  - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, assim sobrepõem-se às do _core_ e configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
+  
+  - **`config`**: Contém as configurações do módulo. Estas configurações são carregadas de acordo com o nível de prioridade do módulo, assim sobrepõem-se às do _core_ e às configurações dos módulos de menor prioridade. Também pode conter novas configurações para controlar o comportamento das novas funcionalidades adicionadas pelo módulo.
 
   - **`listeners`**: Contém os _listeners_ dos eventos que podem ocorrer ao longo do tempo de execução.
 
@@ -89,7 +90,8 @@ Abaixo está representada a estrutura de pastas típica de um projeto Stellar. N
 
 ### manifest.json
 
-O ficheiro **manifest.json** permite descrever o projeto através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo do formato deste ficheiro:
+O ficheiro **manifest.json** permite descrever o projeto através do nome, versão e módulos ativos. Abaixo encontra-se um exemplo com o formato deste ficheiro:
+
 
 ```json
 {
