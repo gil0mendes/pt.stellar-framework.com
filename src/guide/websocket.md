@@ -6,9 +6,9 @@ order: 13
 
 ## Visão Geral
 
-O Stellar usa o [Primus](http://primus.io) para trabalhar com _web sockets_. O Primus cria uma camada de abstração sobre o _engine_ do websocket, ele suposta: `ws`, `engine.io`, `socket.io`, entre outros. O _web socket_ encontra-se ligado ao servidor _web_, seja ele HTTP ou HTTPS.
+O Stellar usa o [Primus](http://primus.io) para trabalhar com _web sockets_. O Primus cria uma camada de abstração sobre o _engine_ do websocket, ele suporta: `ws`, `engine.io`, `socket.io`, entre outros. O _web socket_ encontra-se ligado ao servidor _web_, seja ele HTTP ou HTTPS.
 
-Quando o Stellar inicia será gerado um _script_ com algumas funções úteis para fazer a ligação entre o o cliente e o servidor. Esse _script_ pode ser obtido através da chamada do URL `http(s)://stellar_domain.com/stellar-client`.
+Quando o Stellar inicia é gerado um _script_ com algumas funções úteis para fazer a ligação entre o cliente e o servidor. Esse _script_ pode ser obtido através da chamada do URL `http(s)://stellar_domain.com/stellar-client`.
 
 ## Métodos
 
@@ -19,7 +19,7 @@ Abaixo estão expostos todos os métodos disponibilizados pelo cliente para que 
 O método `client.connect(callback)` permite abrir uma ligação com o servidor:
 
 - **`callback(error, detailsView)`**: função de _callback_
-  - **`error`**: objeto com o erro que aconteceu durante a chamada ao servidor, caso exista
+  - **`error`**: objeto com o erro que ocorrido durante a chamada ao servidor, caso exista
   - **`detailsView`**: o mesmo que o método `detailsView`
 
 ### Chamar uma Ação
@@ -186,7 +186,7 @@ client.on('welcome', message => { })
 
 ### Say
 
-O evento `say` acontece quando o cliente receber mensagens de outros clientes em todas as salas.
+O evento `say` acontece quando o cliente recebe mensagens de outros clientes em todas as salas.
 
 ```javascript
 client.on('say', message => { })

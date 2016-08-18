@@ -6,7 +6,7 @@ order: 14
 
 ## Visão Geral
 
-Também é possível interagir com o Stellar usando uma ligação persistente através de um _socket_ TCP. Por defeito a porta usada é a `5000`, mas esta pode ser alterada através da propriedade `api.config.tcp.port`. Uma vez que se trata de uma ligação persistente a forma de funcionamento é semelhante à do [WebSocket](websocket.html), onde se utiliza _verbs_ para dar comandos ao servidor. A lista abaixo mostra os _verbs_ disponíveis:
+Também é possível interagir com o Stellar usando uma ligação persistente através de um _socket_ TCP. Por defeito a porta usada é a `5000`, mas esta pode ser alterada através da propriedade `api.config.tcp.port`. Uma vez que se trata de uma ligação persistente a forma de funcionamento é semelhante à do [WebSocket](websocket.html), onde se utiliza _verbs_ para passar comandos ao servidor. A lista abaixo mostra os _verbs_ disponíveis:
 
 - **`quit`**: termina a ligação com o servidor (a sessão é destruída)
 - **`paramAdd`**: guarda uma variável que fica anexada à conexão
@@ -18,7 +18,7 @@ Também é possível interagir com o Stellar usando uma ligação persistente at
 - **`paramsView`**: devolve um objeto JSON com todos os parâmetros
 - **`paramsDelete`**: remove todos os parâmetros definidos
 - **`roomAdd`**: junta o cliente a uma sala de _chat_
-- **`roomLeave`**: faz o cliente deixar o cliente
+- **`roomLeave`**: faz o cliente deixar sala de _chat_
 - **`detailsView`**: obtém os detalhes da conexão do cliente, inclui o ID publico
 - **`say`**: envia uma mensagem para uma sala de _chat_.
 
@@ -30,7 +30,7 @@ Uma das principais vantagens de utilizar uma ligação TCP é a possibilidade de
 
 ## TLS
 
-O servidor TCP suporta ligações cifradas através de TLS caso desejado. Para isso é necessário fazer algumas pequenas configurações no servidor:
+O servidor TCP suporta ligações cifradas através de TLS, caso seja desejado. Para isso é necessário fazer algumas pequenas configurações no servidor:
 
 ```javascript
 exports.default = {
