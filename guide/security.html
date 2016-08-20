@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    <title>Middleware - Stellar</title>
+    <title>Segurança - Stellar</title>
 
     <!-- charset -->
     <meta charset="utf-8">
@@ -85,7 +85,7 @@
         </li>
       
         <li>
-          <a href="/guide/middleware.html" class="sidebar-link current">Middleware</a>
+          <a href="/guide/middleware.html" class="sidebar-link">Middleware</a>
         </li>
       
         <li>
@@ -129,7 +129,7 @@
         </li>
       
         <li>
-          <a href="/guide/security.html" class="sidebar-link">Segurança</a>
+          <a href="/guide/security.html" class="sidebar-link current">Segurança</a>
         </li>
       
     </ul>
@@ -139,55 +139,26 @@
 
 
 <div class="content guide with-sidebar">
-  <h1>Middleware</h1>
-  <h2 id="O-que-e-um-middleware"><a href="#O-que-e-um-middleware" class="headerlink" title="O que é um middleware?"></a>O que é um middleware?</h2><p>Os desenvolvedores podem criar <em>middlewares</em> que podem ser aplicados antes e depois da execução de uma ação. Existem dois tipos de <em>middlewares</em>, os globais, que são aplicados a todas as ações e os individuais que são aplicados de forma individual a cada ação utilizando a propriedade <code>action.middleware</code>. Cada <em>middleware</em> tem um nome e opcionalmente pode conter uma prioridade que irá definir a ordem de execução dos <em>middleware</em>.<br>Existem três tipos de <em>middlewares</em>, para ações, conexões e <em>chat</em>. Cada um é distinto dos outros e operam em diferentes partes do <em>lifecycle</em> do cliente.</p>
-<h3 id="Lifecycle"><a href="#Lifecycle" class="headerlink" title="Lifecycle"></a>Lifecycle</h3><p><img src="/images/middleware_lifecycle.png" alt="Request Flow"></p>
-<p>Como se pode verificar na imagem acima, existem diferentes locais onde pode ser executado um <em>middleware</em>. A lista a seguir mostra os diferentes <em>middlewares</em> disponíveis no Stellar:</p>
-<ul>
-<li>Quando um cliente se liga<ul>
-<li><em>Middleware</em> de conexão, <code>create</code></li>
-</ul>
-</li>
-<li>O cliente faz o pedido de uma ação<ul>
-<li><em>Middleware</em> de ação, <code>preProcessor</code></li>
-<li><em>Middleware</em> de ação, <code>postProcessor</code></li>
-</ul>
-</li>
-<li>Um cliente se junta a uma sala de chat<ul>
-<li><em>Middleware</em> de <em>chat</em>, <code>join</code></li>
-</ul>
-</li>
-<li>O cliente envia uma mensagem para a sala de <em>chat</em><ul>
-<li><em>Middleware</em> de <em>chat</em>, <code>say</code></li>
-<li><em>Middleware</em> de <em>chat</em>, <code>onSayReceive</code></li>
-</ul>
-</li>
-<li>O cliente faz um pedido de desconexão (<em>quit</em>)<ul>
-<li><em>Middleware</em> de <em>chat</em>, <code>leave</code></li>
-<li><em>Middleware</em> de conexão, <code>destroy</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="Tipos-de-middlewares"><a href="#Tipos-de-middlewares" class="headerlink" title="Tipos de middlewares"></a>Tipos de middlewares</h2><h3 id="Middleware-de-Acao"><a href="#Middleware-de-Acao" class="headerlink" title="Middleware de Ação"></a>Middleware de Ação</h3><p>O Stellar oferece <em>hooks</em> para se executar código antes e depois de algumas ações, este é o local apropriado para adicionar lógica relacionada com a autenticação ou validar o estado de um determinado recurso.</p>
-<h3 id="Middleware-de-Conexao"><a href="#Middleware-de-Conexao" class="headerlink" title="Middleware de Conexão"></a>Middleware de Conexão</h3><p>É possível criar <em>middlewares</em> para reagir à criação e destruição de todas as conexões. Ao contrário dos <em>middleware</em> de ações, estes não bloqueiam o pedido até ao fim da execução, são assíncronos.</p>
-<p>É preciso ter em atenção que algumas conexões persistem (TCP e WebSocket) e parte delas apenas existem durante um único pedido (HTTP), mas pode-se inspecionar o valor <code>connection.type</code> de forma a saber que tipo de ligação está a ser criada ou destruída.</p>
-<h3 id="Middleware-de-Chat"><a href="#Middleware-de-Chat" class="headerlink" title="Middleware de Chat"></a>Middleware de Chat</h3><p>Por ultimo, existe os <em>middlewares</em> para o <em>chat</em>. Este tipo de <em>middleware</em> é ativado quando um cliente se junta ou sai de uma sala, ou comunica dentro de uma sala de <em>chat</em>. Existem quatro tipos de <em>middleware</em> para cada etapa: <code>say</code>, <code>onSayReceive</code>, <code>join</code> e `leave.</p>
+  <h1>Segurança</h1>
+  <h1 id="Introducao"><a href="#Introducao" class="headerlink" title="Introdução"></a>Introdução</h1><p>Stellar vem equipado com um sistema de <em>hashing</em>, que faz uso do biblioteca <a href="https://www.npmjs.com/package/bcrypt" target="_blank" rel="external">bcrypt</a>. Este sistema permite calcular <em>hashes</em> e comparar-las com dados em claro a fim de validar-los.</p>
+<h2 id="Calcular-Hashes"><a href="#Calcular-Hashes" class="headerlink" title="Calcular Hashes"></a>Calcular Hashes</h2><p>O método <code>api.hash.hash</code> e <code>api.hash.hashSync</code> permite gerar uma <em>hash</em> a partir de uma <em>string</em> de forma assíncrona e síncrona, respetivamente.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// gerar uma hash de forma síncrona</span></span><br><span class="line"><span class="keyword">let</span> hash = api.hash.hashSync(plainData)</span><br><span class="line"></span><br><span class="line"><span class="comment">// gerar uma hash de forma assíncrona</span></span><br><span class="line">api.hash.hash(plainData).then(hash =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa com a hash...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Comparar-Hashes"><a href="#Comparar-Hashes" class="headerlink" title="Comparar Hashes"></a>Comparar Hashes</h2><p>O método <code>api.hash.compare</code> e <code>api.hash.compareSync</code> permite comprar uma <em>string</em> com uma <em>hash</em> a fim de validar se estas correspondem.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// comparar uma hash de forma síncrona</span></span><br><span class="line"><span class="keyword">let</span> result = api.hash.compare(plainData, hashToCompare)</span><br><span class="line"></span><br><span class="line"><span class="comment">// comparar uma hash de forma assíncrona</span></span><br><span class="line">api.hash.compareSync(plainData, hashToCompare).then(isValid =&gt; &#123;</span><br><span class="line">  <span class="comment">// faz alguma coisa com o resultado...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
   
       <div class="guide-links">
         
-          <span>← <a href="/guide/tasks.html">Tarefas</a></span>
+          <span>← <a href="/guide/tcp.html">TCP</a></span>
         
-        
-          <span style="float:right"><a href="/guide/satellites.html">Satélites</a> →</span>
         
       </div>
     
 
     <div class="footer">
       Encontrou um erro ou quer contribuir para a documentação?
-      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/middleware.md" target="_blank">
+      <a href="https://github.com/gil0mendes/pt.stellar-framework.com/tree/master/src/guide/security.md" target="_blank">
         Edite esta página no Github!
       </a>
     </div>
