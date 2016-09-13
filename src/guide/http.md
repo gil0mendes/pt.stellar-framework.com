@@ -6,7 +6,7 @@ order: 16
 
 ## Introdução
 
-O servidor HTTP permite executar [ações](./actions.html) e expor ficheiros sob o protocolo HTTP e HTTPS. A API pode ser acedida através de um browser, pelo comando Curl, etc. Através do endereço `<url>?action=<nome_da_ação>` ou `<url>/api/<nome_da_ação>` é onde pode aceder às ações. Por exemplo, se quiser aceder à ação 'getPosts' num servidor local que está à escuta na porta 8080, teria que fazer uma chamada para o URL `http://127.0.0.1/?action=getPosts`.
+O servidor HTTP permite executar [ações](./actions.html) e expor ficheiros sob o protocolo HTTP e HTTPS. A API pode ser acedida através de um browser, pelo comando Curl, etc. Através do endereço `<url>?action=<nome_da_ação>` ou `<url>/api/<nome_da_ação>` é onde pode aceder às ações. Por exemplo, se quiser aceder à ação 'getPosts' num servidor local que está à escuta na porta 8080, teria que fazer uma chamada para o URL `http://127.0.0.1:8080/api?action=getPosts`.
 
 O código JSON abaixo mostra uma exemplo de uma resposta do servidor.
 
